@@ -2,21 +2,21 @@
 module.exports = (sequelize, DataTypes) => {
     const Progress = sequelize.define('Progress', {
       id: {
-          type: Sequelize.INTEGER,
+          type: DataTypes.INTEGER,
           autoIncrement: true,
           primaryKey: true,
           allowNull: false
       },
       name: {
-          type: Sequelize.STRING,
+          type: DataTypes.STRING,
           allowNull: false
       },
       description: {
-          type: Sequelize.STRING,
+          type: DataTypes.STRING,
           allowNull: false
       },
       step: {
-          type: Sequelize.INTEGER,
+          type: DataTypes.INTEGER,
           autoIncrement: false,
           allowNull: false
       }        

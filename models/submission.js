@@ -59,15 +59,13 @@ module.exports = (sequelize, DataTypes) => {
         // A submission can belong to many comments
         Submission.belongsToMany(models.Comment, { through: 'ci_comments' });
         // A submission can belong to many areas affected
-        Submission.belongsToMany(models.AreasAffected, { through: 'ci_areas_affected' });
+        Submission.belongsToMany(models.AreaAffected, { through: 'ci_areas_affected' });
         // A submission can belong to many wastes
-        Submission.belongsToMany(models.WastesSeen, { through: 'ci_wastes' });
+        Submission.belongsToMany(models.Waste, { through: 'ci_wastes' });
         // A submission can belong to many process
-        Submission.belongsToMany(models.ProcessImproved, { through: 'ci_processes' });
+        Submission.belongsToMany(models.Process, { through: 'ci_processes' });
         // A submission can belong to many resources
-        Submission.belongsToMany(models.ResourcesNeeded, { through: 'ci_resources' });
-        // A submission can belong to many resources
-        Submission.belongsToMany(models.ResourcesNeeded, { through: 'ci_resources' });
+        Submission.belongsToMany(models.Resource, { through: 'ci_resources' });
     };
     return Submission;
 };

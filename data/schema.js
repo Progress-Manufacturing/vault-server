@@ -1,9 +1,9 @@
 'use strict';
-const { makeExecutableSchema } = require('graphql-tools');
+const { ApolloServer, gql } = require('apollo-server-express');
 const resolvers = require('./resolvers');
 
 // Define our schema using the GraphQL schema language
-const typeDefs = `
+const typeDefs = gql`
     scalar DateTime
     type User {
         id: Int!
@@ -13,7 +13,7 @@ const typeDefs = `
         supervisor: Boolean!
         lead: Boolean!
         email: String!
-        submissions: [Submissions]
+        submissions: [Submission]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
@@ -24,14 +24,14 @@ const typeDefs = `
         lead: User!
         description: String! # description of the problem seen
         areasAffected: [AreaAffected!]! # areas effected by the problem
-        wastesSeen: [Waste!]! # wastes seen in the problem
-        processImproved: [Process!]! # what process will be improved by suggestion
-        improvementExplanation: String! # how the process will be improved
-        proposedSolution: String! # solution to problem seen
-        resourcesNeeded: [Resource!]! 
+        waste: [Waste!]! # wastes seen in the problem
+        process: [Process!]! # what process will be improved by suggestion
+        explanation: String! # how the process will be improved
+        solution: String! # solution to problem seen
+        resource: [Resource!]! 
         resourcesExplanation: String! # why the requested resources are needed
-        solutionMeasurement: String! # how the solution will be measured
-        rewardId: Reward! # what type of reward was given
+        measurement: String! # how the solution will be measured
+        reward: Reward! # what type of reward was given
         status: Boolean!
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
@@ -62,6 +62,11 @@ const typeDefs = `
         submissions: [Submission]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
+    }
+    type Progress {
+        id: Int!
+        name: String!
+        description: String!
     }
     type Resource {
         id: Int!
@@ -101,50 +106,53 @@ const typeDefs = `
         allSubmissions: [Submission]
         fetchSubmission(id: Int!): Submission
 
-        allComments: [Comment]
-        fetchComment(id: Int!): Comment
-
         allAreasAffected: [AreaAffected]
         fetchAreaAffected(id: Int!): AreaAffected
 
-        allWastes: [Waste]
+        allWaste: [Waste]
         fetchWaste(id: Int!): Waste
 
-        allProcesses: [Process]
+        allProcess: [Process]
         fetchProcess(id: Int!): Process
 
-        allResources: [Resource]
+        allResource: [Resource]
         fetchResource(id: Int!): Resource
 
-        allRewards: [Reward]
+        allReward: [Reward]
         fetchReward(id: Int!): Reward
 
-        allComments: [Comment]
+        allComment: [Comment]
         fetchComment(id: Int!): Comment
     }
     type Mutation {
         createUser (
             firstName: String!,
             lastName: String,
-            email: String!
+            email: String!,
+            admin: Boolean,
+            supervisor: Boolean,
+            lead: Boolean
         ): User
         updateUser (
             id: Int!,
             firstName: String!,
             lastName: String,
             email: String!,
+            admin: Boolean,
+            supervisor: Boolean,
+            lead: Boolean
         ): User
         
         addSubmission (
             description: String!, 
             areasAffected: [Int!]!,
-            wastesSeen: [Int!]!,
-            processImproved: [Int!]!,
-            improvementExplanation: String!,
-            proposedSolution: String!,
-            resourcesNeeded: [Int!]!,
+            waste: [Int!]!,
+            process: [Int!]!,
+            explanation: String!,
+            solution: String!,
+            resource: [Int!]!,
             resourcesExplanation: String!,
-            solutionMeasurement: String!,
+            measurement: String!,
             status: Boolean
         ) : Submission
         updateSubmission (
@@ -171,7 +179,7 @@ const typeDefs = `
             id: Int!,
             name: String!,
             description: String
-        ) : AreasAffected
+        ) : AreaAffected
         # TODO: allow deletion of Areas Affected
 
         addWaste (
@@ -219,4 +227,13 @@ const typeDefs = `
         # TODO: allow deletion of Reward
     }
 `;
-module.exports = makeExecutableSchema({ typeDefs, resolvers });
+module.exports = new ApolloServer({
+    typeDefs,
+    resolvers,
+    playground: {
+        endpoint: '/graphql',
+        settings: {
+            'editor.theme' : 'light'
+        }
+    }
+})

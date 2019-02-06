@@ -6,14 +6,12 @@ const {
     User,
     Submission,
     AreasAffected,
-    Processes,
+    Process,
     Progress,
-    Resources,
+    Resource,
     Reward,
-    Wastes} = require('../models');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const slugify = require('slugify');
+    Waste} = require('../models');
+// const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const resolvers = {
@@ -37,7 +35,7 @@ const resolvers = {
         },
 
         // Fetch all comments
-        async allComments() {
+        async allComment() {
             return await Comment.all();
         },
         // Get a comment by ID
@@ -55,7 +53,7 @@ const resolvers = {
         },
 
         // Fetch all wastes
-        async allWastes(_, args, { user }) {
+        async allWaste(_, args, { user }) {
             return await Waste.all();
         },
         // Get a waste by it ID
@@ -64,7 +62,7 @@ const resolvers = {
         },
 
         // Fetch all processes
-        async allProcesses(_, args, { user }) {
+        async allProcess(_, args, { user }) {
             return await Process.all();
         },
         // Get a process by it ID
@@ -73,7 +71,7 @@ const resolvers = {
         },
 
         // Fetch all resources
-        async allResources(_, args, { user }) {
+        async allResource(_, args, { user }) {
             return await Process.all();
         },
         // Get a process by it ID
@@ -82,7 +80,7 @@ const resolvers = {
         },
 
         // Fetch all rewards
-        async allRewards(_, args, { user }) {
+        async allReward(_, args, { user }) {
             return await Reward.all();
         },
         // Get a process by it ID
@@ -92,20 +90,18 @@ const resolvers = {
     },
     Mutation: {
         // Create new user
-        async createUser(_, { firstName, lastName, email, password }) {
+        async createUser(_, { firstName, lastName, email, admin, supervisor, lead }) {
             return await User.create({
                 firstName,
                 lastName,
                 email,
-                password: await bcrypt.hash(password, 10)
+                admin,
+                supervisor,
+                lead
             });
         },
         // Update a particular user
-        async updateUser(_, { id, firstName, lastName, email, password }, { authUser }) {
-            // Make sure user is logged in
-            if (!authUser) {
-                throw new Error('You must log in to continue!')
-            }
+        async updateUser(_, { id, firstName, lastName, email, admin, supervisor, lead  }) {
             // fetch the user by it ID
             const user = await User.findById(id);
             // Update the user
@@ -113,7 +109,9 @@ const resolvers = {
                 firstName,
                 lastName,
                 email,
-                password: await bcrypt.hash(password, 10)
+                admin,
+                supervisor,
+                lead
             });
             return user;
         },
@@ -249,7 +247,7 @@ const resolvers = {
     User: {
         // Fetch all submissions created by a user
         async submissions(user) {
-            return await user.getSubmissions();
+            return await user.getSubmission();
         }
     },
     Submission: {
@@ -259,53 +257,53 @@ const resolvers = {
         },
         // Fetch all areas affected that a submission belongs to
         async areasAffected(submission) {
-            return await submission.getAreasAffected();
+            return await submission.getAreaAffected();
         },
         // Fetch all wastes that a submission belongs to
-        async wastes(submission) {
-            return await submission.getWastes();
+        async waste(submission) {
+            return await submission.getWaste();
         },
         // Fetch all processes that a submission belongs to
-        async processes(submission) {
-            return await submission.getProcesses();
+        async process(submission) {
+            return await submission.getProcess();
         },
         // Fetch all resources that a submission belongs to
-        async resources(submission) {
-            return await submission.getResources();
+        async resource(submission) {
+            return await submission.getResource();
         },
         // Fetch all rewards that a submission belongs to
-        async rewards(submission) {
-            return await submission.getRewards();
+        async reward(submission) {
+            return await submission.getReward();
         }
     },
     AreaAffected: {
         // Fetch all submissions belonging to a area affected
-        async submission(areaAffected) {
-            return await areaAffected.getSubmissions();
+        async submissions(areaAffected) {
+            return await areaAffected.getSubmission();
         }
     },
     Waste: {
         // Fetch all submissions belonging to a area affected
-        async submission(waste) {
-            return await waste.getSubmissions();
+        async submissions(waste) {
+            return await waste.getSubmission();
         }
     },
     Process: {
         // Fetch all submissions belonging to a process
-        async submission(process) {
-            return await process.getSubmissions();
+        async submissions(process) {
+            return await process.getSubmission();
         }
     },
     Resource: {
         // Fetch all submissions belonging to a resource
-        async submission(resource) {
-            return await resource.getSubmissions();
+        async submissions(resource) {
+            return await resource.getSubmission();
         }
     },
     Reward: {
         // Fetch all submissions belonging to a reward
-        async submission(reward) {
-            return await reward.getSubmissions();
+        async submissions(reward) {
+            return await reward.getSubmission();
         }
     },
     DateTime: new GraphQLScalarType({
