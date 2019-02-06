@@ -97,18 +97,28 @@ const typeDefs = `
     type Query {
         allUsers: [User]
         fetchUser(id: Int!): User
+
         allSubmissions: [Submission]
         fetchSubmission(id: Int!): Submission
+
+        allComments: [Comment]
+        fetchComment(id: Int!): Comment
+
         allAreasAffected: [AreaAffected]
         fetchAreaAffected(id: Int!): AreaAffected
+
         allWastes: [Waste]
         fetchWaste(id: Int!): Waste
+
         allProcesses: [Process]
         fetchProcess(id: Int!): Process
+
         allResources: [Resource]
         fetchResource(id: Int!): Resource
+
         allRewards: [Reward]
         fetchReward(id: Int!): Reward
+
         allComments: [Comment]
         fetchComment(id: Int!): Comment
     }
@@ -124,6 +134,7 @@ const typeDefs = `
             lastName: String,
             email: String!,
         ): User
+        
         addSubmission (
             description: String!, 
             areasAffected: [Int!]!,
@@ -141,12 +152,13 @@ const typeDefs = `
             supervisor: Int!,
             lead: Int!,
             status: Boolean,
-            rewardId: Int!,
+            rewardId: Int!
         ) : Submission
         
         addComment (
-            content: String!
-            submission: Int!
+            id: Int!,
+            content: String!,
+            submission: Int!,
             status: Boolean
         ) : Comment
         #TODO: allow for update or deletion of comments

@@ -2,7 +2,6 @@
 'use strict';
 const express = require('express');
 const schema = require('./data/schema');
-const jwt = require('express-jwt');
 require('dotenv').config();
 const PORT = 3000;
 // Create our express app
