@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const SubmissionImprovement = sequelize.define('CI_SubmissionImprovement', {
+    const SubmissionImprovement = sequelize.define('Submissionimprovement', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         }
+    }, {
+        tableName: 'ci_submission_improvement'
     });
     return SubmissionImprovement;
 };

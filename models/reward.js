@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Reward = sequelize.define('CI_Reward', {
+    const Reward = sequelize.define('Reward', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -13,10 +13,12 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         description: DataTypes.STRING
+    }, {
+        tableName: 'ci_rewards'
     });
     Reward.associate = function(models) {
         // A reward can have many submissions
-        Reward.belongsToMany(models.CI_Submission, { through: 'ci_submission_reward' });
+        Reward.belongsToMany(models.Submission, { through: 'ci_submission_reward' });
     };
     return Reward;
 };

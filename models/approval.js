@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Approval = sequelize.define('CI_Approval', {
+    const Approval = sequelize.define('Approval', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -12,11 +12,13 @@ module.exports = (sequelize, DataTypes) => {
             unique: true,
             allowNull: false
         },
-        description: DataTypes.STRING
+        description: DataTypes.STRING,
+    },{
+        tableName: "ci_approvals"
     });
     Approval.associate = function(models) {
         // A approval can have many submissions
-        Approval.belongsToMany(models.CI_Submission, { through: 'ci_submission_approval' });
+        Approval.belongsToMany(models.Submission, { through: 'ci_submission_approval' });
     };
     return Approval;
 };

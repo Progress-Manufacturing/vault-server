@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Progress = sequelize.define('CI_Progress', {
+    const Progress = sequelize.define('Progress', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -17,10 +17,12 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: false
         },
         description: DataTypes.STRING
+    }, {
+        tableName: 'ci_progress'
     });
     Progress.associate = function(models) {
         // A progress can have many submissions
-        Progress.belongsToMany(models.CI_Submission, { through: 'ci_submission_progress' });
+        Progress.belongsToMany(models.Submission, { through: 'ci_submission_progress' });
     };
     return Progress;
 };

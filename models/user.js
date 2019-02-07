@@ -20,12 +20,14 @@ module.exports = (sequelize, DataTypes) => {
             unique: true,
             allowNull: false
         }
+    }, {
+        tableName: 'users'
     });
     User.associate = function(models) {
         // A user can have many submissions
-        User.hasMany(models.CI_Submission);
+        User.hasMany(models.Submission);
         // A user can have many rewards
-        User.hasMany(models.CI_Reward);
+        User.hasMany(models.Reward);
     };
     return User;
 };

@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Submission = sequelize.define('CI_Submission', {
+    const Submission = sequelize.define('Submission', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -44,24 +44,26 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: false
         }
+    }, {
+        tableName: 'ci_submissions'
     });
     Submission.associate = function(models) {
         // A submission belongs to a user
         Submission.belongsTo(models.User);
         // A submission can belong to many areas
-        Submission.belongsToMany(models.CI_Area, { through: 'ci_submission_area' });
+        Submission.belongsToMany(models.Area, { through: 'ci_submission_area' });
         // A submission can belong to many wastes
-        Submission.belongsToMany(models.CI_Waste, { through: 'ci_submission_waste' });
+        Submission.belongsToMany(models.Waste, { through: 'ci_submission_waste' });
         // A submission can belong to many improvements
-        Submission.belongsToMany(models.CI_Improvement, { through: 'ci_submission_improvement' });
+        Submission.belongsToMany(models.Improvement, { through: 'ci_submission_improvement' });
         // A submission can belong to many resources
-        Submission.belongsToMany(models.CI_Resource, { through: 'ci_submission_resource' });
+        Submission.belongsToMany(models.Resource, { through: 'ci_submission_resource' });
         // A submission can belong to many comments
-        Submission.belongsToMany(models.CI_Comment, { through: 'ci_submission_comment' });
+        Submission.belongsToMany(models.Comment, { through: 'ci_submission_comment' });
         // A submission can belongs one reward
-        Submission.belongsTo(models.CI_Reward);
+        Submission.belongsTo(models.Reward);
         // A submission can belongs one approval
-        Submission.belongsTo(models.CI_Approval);
+        Submission.belongsTo(models.Approval);
     };
     return Submission;
 };

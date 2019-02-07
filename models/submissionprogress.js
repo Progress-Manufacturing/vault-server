@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const SubmissionProgress = sequelize.define('CI_SubmissionProgress', {
+    const SubmissionProgress = sequelize.define('Submissionprogress', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         }
+    }, {
+        tableName: 'ci_submission_progress'
     });
     return SubmissionProgress;
 };

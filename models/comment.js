@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Comment = sequelize.define('CI_Comment', {
+    const Comment = sequelize.define('Comment', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -20,12 +20,14 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: false
         }
+    }, {
+        tableName: 'ci_comments'
     });
     Comment.associate = function(models) {
         // A comment belongs to a user
         Comment.belongsTo(models.User);
         // A comment belongs to a submission
-        Comment.belongsTo(models.CI_Submission);
+        Comment.belongsTo(models.Submission);
     };
     return Comment;
 };

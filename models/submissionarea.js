@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const SubmissionArea = sequelize.define('CI_SubmissionArea', {
+    const SubmissionArea = sequelize.define('Submissionarea', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         }
+    }, {
+        tableName: 'ci_submission_area'
     });
     return SubmissionArea;
 };
