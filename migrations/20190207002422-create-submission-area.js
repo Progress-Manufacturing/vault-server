@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('ci_submission_area_affected', {
+        return queryInterface.createTable('ci_submission_area', {
             id: {
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
@@ -12,7 +12,7 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false
             },
-            areaAffectedId: {
+            areaId: {
                 type: Sequelize.INTEGER,
                 allowNull: false
             },
@@ -27,6 +27,6 @@ module.exports = {
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('ci_submission_area_affected');
+        return queryInterface.dropTable('ci_submission_area');
     }
 };

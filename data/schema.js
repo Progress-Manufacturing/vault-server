@@ -23,20 +23,20 @@ const typeDefs = gql`
         supervisor: User!
         lead: User!
         description: String! # description of the problem seen
-        areasAffected: [AreaAffected!]! # areas effected by the problem
-        waste: [Waste!]! # wastes seen in the problem
-        process: [Process!]! # what process will be improved by suggestion
-        explanation: String! # how the process will be improved
-        solution: String! # solution to problem seen
-        resource: [Resource!]! 
-        resourcesExplanation: String! # why the requested resources are needed
-        measurement: String! # how the solution will be measured
-        reward: Reward! # what type of reward was given
+        improvementExplanation: String! # explanation of the issue
+        proposedSolution: String! # proposed solution of the issue
+        resourceExplanation: String! # explanation of why the resources are needed
+        solutionMeasurement: String! # how the solution will be measured
+        areas: [Area!]! # areas affected by the problem
         status: Boolean!
+        reward: Reward!
+        progress: Progress!
+        approval: Approval!
+        comments: [Comment!]!
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
-    type AreaAffected {
+    type Area {
         id: Int!
         name: String!
         status: Boolean!
@@ -54,7 +54,7 @@ const typeDefs = gql`
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
-    type Process {
+    type Improvement {
         id: Int!
         name: String!
         status: Boolean!
@@ -62,11 +62,6 @@ const typeDefs = gql`
         submissions: [Submission]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
-    }
-    type Progress {
-        id: Int!
-        name: String!
-        description: String!
     }
     type Resource {
         id: Int!
@@ -86,19 +81,32 @@ const typeDefs = gql`
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
-    type Comment {
+    type Approval {
         id: Int!
-        userId: User!
-        content: String!
-        submission: Submission!
-        status: Boolean!
+        name: String!
+        description: String!
+        submissions: [Submission]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
-
-    # TODO: get supervisors, leads and admin
-    # TODO: get all users under supervisor
-    # TODO: get all users under lead
+    type Comment {
+        id: Int!
+        content: String!
+        user: User!
+        submission: Submission!
+        createdAt: DateTime! # will be generated
+        updatedAt: DateTime! # will be generated
+    }
+    type Progress {
+        id: Int!
+        name: String!
+        step: Int!
+        description: String!
+        submissions: [Submission!]!
+        createdAt: DateTime! # will be generated
+        updatedAt: DateTime! # will be generated
+    }
+    
     type Query {
         allUsers: [User]
         fetchUser(id: Int!): User
@@ -106,24 +114,31 @@ const typeDefs = gql`
         allSubmissions: [Submission]
         fetchSubmission(id: Int!): Submission
 
-        allAreasAffected: [AreaAffected]
-        fetchAreaAffected(id: Int!): AreaAffected
+        allAreas: [Area]
+        fetchArea(id: Int!): Area
 
-        allWaste: [Waste]
+        allWastes: [Waste]
         fetchWaste(id: Int!): Waste
 
-        allProcess: [Process]
-        fetchProcess(id: Int!): Process
+        allImprovements: [Improvement]
+        fetchImprovement(id: Int!): Improvement
 
-        allResource: [Resource]
+        allResources: [Resource]
         fetchResource(id: Int!): Resource
 
-        allReward: [Reward]
+        allRewards: [Reward]
         fetchReward(id: Int!): Reward
 
-        allComment: [Comment]
+        allComments: [Comment]
         fetchComment(id: Int!): Comment
+
+        allApprovals: [Approval]
+        fetchApproval(id: Int!): Approval
+
+        allProgresses: [Progress]
+        fetchProgress(id: Int!): Progress
     }
+    
     type Mutation {
         createUser (
             firstName: String!,
@@ -145,86 +160,103 @@ const typeDefs = gql`
         
         addSubmission (
             description: String!, 
-            areasAffected: [Int!]!,
-            waste: [Int!]!,
-            process: [Int!]!,
-            explanation: String!,
-            solution: String!,
-            resource: [Int!]!,
-            resourcesExplanation: String!,
-            measurement: String!,
+            improvementExplanation: String!,
+            proposedSolution: String!,
+            resourceExplanation: String!,
+            solutionMeasurement: String!,
+            areas: [Int!]!,
             status: Boolean
         ) : Submission
         updateSubmission (
             id: Int!,
-            supervisor: Int!,
             lead: Int!,
-            status: Boolean,
-            rewardId: Int!
+            supervisor: Int!
+            reward: Int!
         ) : Submission
-        
+
         addComment (
-            id: Int!,
             content: String!,
-            submission: Int!,
+            user: Int!,
             status: Boolean
         ) : Comment
-        #TODO: allow for update or deletion of comments
-
-        addAreaAffected (
+        # TODO: All user to update comment?
+        
+        addApproval (
             name: String!,
-            description: String,
-        ) : AreaAffected
-        updateAreaAffected (
+            description: String
+        ) : Approval
+        updateApproval (
             id: Int!,
             name: String!,
             description: String
-        ) : AreaAffected
-        # TODO: allow deletion of Areas Affected
+        ) : Approval
+
+        addProgress (
+            name: String!,
+            step: Int!,
+            description: String
+        ) : Progress
+        updateProgress (
+            id: Int!,
+            name: String!,
+            step: Int!,
+            description: String
+        ) : Progress
+
+        addArea (
+            name: String!,
+            description: String,
+        ) : Area
+        updateArea (
+            id: Int!
+            name: String!,
+            description: String
+        ) : Area
+        # TODO: allow deletion of Areas Affected?
 
         addWaste (
             name: String!,
             description: String,
         ) : Waste
         updateWaste (
-            id: Int!,
+            id: Int!
             name: String!,
             description: String
         ) : Waste
-        # TODO: allow deletion of Waste
+        # TODO: allow deletion of Wastes?
 
-        addProcess (
+        addImprovement (
             name: String!,
             description: String,
-        ) : Process
-        updateProcess (
-            id: Int!,
+        ) : Improvement
+        updateImprovement (
+            id: Int!
             name: String!,
             description: String
-        ) : Process
-        # TODO: allow deletion of Process
+        ) : Improvement
+        # TODO: allow deletion of Improvements?
 
         addResource (
             name: String!,
             description: String,
         ) : Resource
         updateResource (
-            id: Int!,
+            id: Int!
             name: String!,
             description: String
         ) : Resource
-        # TODO: allow deletion of Resource
+        # TODO: allow deletion of Resources?
 
         addReward (
             name: String!,
-            description: String,
-        ) : Reward
+            description: String
+        ): Reward
         updateReward (
             id: Int!,
-            name: String!,
-            description: String
-        ) : Reward
-        # TODO: allow deletion of Reward
+            name: String!
+            description: String,
+            status: Boolean
+        ): Reward
     }
 `;
 module.exports = new ApolloServer({

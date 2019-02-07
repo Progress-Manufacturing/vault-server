@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Waste = sequelize.define('Waste', {
+    const Waste = sequelize.define('CI_Waste', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         description: DataTypes.STRING
     });
     Waste.associate = function(models) {
-        // A waste can have to many submissions
-        Waste.belongsToMany(models.Submission, { through: 'ci_wastes' });
+        // A waste can have many submissions
+        Waste.belongsToMany(models.CI_Submission, { through: 'ci_submission_waste' });
     };
     return Waste;
 };

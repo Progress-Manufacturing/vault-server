@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Comment = sequelize.define('Comment', {
+    const Comment = sequelize.define('CI_Comment', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         // A comment belongs to a user
         Comment.belongsTo(models.User);
         // A comment belongs to a submission
-        Comment.belongsTo(models.Submission);
+        Comment.belongsTo(models.CI_Submission);
     };
     return Comment;
 };

@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const SubmissionResource = sequelize.define('SubmissionResource', {
+    const SubmissionResource = sequelize.define('CI_SubmissionResource', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,

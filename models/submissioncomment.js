@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const SubmissionAreaAffected = sequelize.define('SubmissionAreaAffected', {
+    const SubmissionComment = sequelize.define('CI_SubmissionComment', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         },
-        areaAffectedId:{
+        commentId:{
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         }
     });
-    return SubmissionAreaAffected;
+    return SubmissionComment;
 };

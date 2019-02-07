@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Process = sequelize.define('Process', {
+    const Approval = sequelize.define('CI_Approval', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         description: DataTypes.STRING
     });
-    Process.associate = function(models) {
-        // A process can have to many submissions
-        Process.belongsToMany(models.Submission, { through: 'ci_processes' });
+    Approval.associate = function(models) {
+        // A approval can have many submissions
+        Approval.belongsToMany(models.CI_Submission, { through: 'ci_submission_approval' });
     };
-    return Process;
+    return Approval;
 };

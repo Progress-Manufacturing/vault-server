@@ -1,37 +1,32 @@
 'use strict';
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('ci_progress', {
+        return queryInterface.createTable('ci_submission_progress', {
             id: {
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
                 primaryKey: true,
                 allowNull: false
             },
-            name: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            description: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            step: {
+            submissionId: {
                 type: Sequelize.INTEGER,
-                autoIncrement: false,
+                allowNull: false
+            },
+            progressId: {
+                type: Sequelize.INTEGER,
                 allowNull: false
             },
             createdAt: {
-                type: Sequelize.DATE,
-                allowNull: false
+                allowNull: false,
+                type: Sequelize.DATE
             },
             updatedAt: {
-                type: Sequelize.DATE,
-                allowNull: false
+                allowNull: false,
+                type: Sequelize.DATE
             }
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('ci_progress');
+        return queryInterface.dropTable('ci_submission_progress');
     }
 };

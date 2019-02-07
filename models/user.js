@@ -23,9 +23,9 @@ module.exports = (sequelize, DataTypes) => {
     });
     User.associate = function(models) {
         // A user can have many submissions
-        User.hasMany(models.Submission);
-        // A user can have many comments
-        User.hasMany(models.Comment)
+        User.hasMany(models.CI_Submission);
+        // A user can have many rewards
+        User.hasMany(models.CI_Reward);
     };
     return User;
 };

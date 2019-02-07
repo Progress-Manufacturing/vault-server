@@ -18,7 +18,11 @@ module.exports = {
             },
             leadId: {
               type: Sequelize.INTEGER.UNSIGNED,
-              allowNull: true
+              allowsNull: true
+            },
+            rewardId: {
+                type: Sequelize.INTEGER.UNSIGNED,
+                allowNull: true
             },
             description: {
                 type: Sequelize.STRING,
@@ -32,21 +36,13 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: true
             },
-            resourcesExplanation: {
+            resourceExplanation: {
                 type: Sequelize.STRING,
                 allowNull: true              
             },
             solutionMeasurement: {
                 type: Sequelize.STRING,
                 allowNull: true        
-            },
-            reward: {
-              type: Sequelize.INTEGER.UNSIGNED,
-              allowNull: true
-            },
-            progress: {
-                type: Sequelize.INTEGER.UNSIGNED,
-                allowNull: true
             },
             status: {
                 type: Sequelize.BOOLEAN,

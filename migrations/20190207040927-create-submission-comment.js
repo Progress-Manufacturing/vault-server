@@ -1,32 +1,32 @@
 'use strict';
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('ci_rewards', {
+        return queryInterface.createTable('ci_submission_comment', {
             id: {
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
                 primaryKey: true,
                 allowNull: false
             },
-            name: {
-                type: Sequelize.STRING,
+            submissionId: {
+                type: Sequelize.INTEGER,
                 allowNull: false
             },
-            description: {
-                type: Sequelize.STRING,
+            commentId: {
+                type: Sequelize.INTEGER,
                 allowNull: false
             },
             createdAt: {
-                type: Sequelize.DATE,
-                allowNull: false
+                allowNull: false,
+                type: Sequelize.DATE
             },
             updatedAt: {
-                type: Sequelize.DATE,
-                allowNull: false
+                allowNull: false,
+                type: Sequelize.DATE
             }
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('ci_rewards');
+        return queryInterface.dropTable('ci_submission_comment');
     }
 };

@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Submission = sequelize.define('Submission', {
+    const Submission = sequelize.define('CI_Submission', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -31,21 +31,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true
         },
-        resourcesExplanation: {
+        resourceExplanation: {
             type: DataTypes.STRING,
             allowNull: true              
         },
         solutionMeasurement: {
             type: DataTypes.STRING,
             allowNull: true        
-        },
-        reward: {
-          type: DataTypes.INTEGER.UNSIGNED,
-          allowNull: true
-        },
-        progress: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            allowNull: true,
         },
         status: {
             type: DataTypes.BOOLEAN,
@@ -56,16 +48,20 @@ module.exports = (sequelize, DataTypes) => {
     Submission.associate = function(models) {
         // A submission belongs to a user
         Submission.belongsTo(models.User);
-        // A submission can belong to many comments
-        Submission.belongsToMany(models.Comment, { through: 'ci_comments' });
-        // A submission can belong to many areas affected
-        Submission.belongsToMany(models.AreaAffected, { through: 'ci_areas_affected' });
+        // A submission can belong to many areas
+        Submission.belongsToMany(models.CI_Area, { through: 'ci_submission_area' });
         // A submission can belong to many wastes
-        Submission.belongsToMany(models.Waste, { through: 'ci_wastes' });
-        // A submission can belong to many process
-        Submission.belongsToMany(models.Process, { through: 'ci_processes' });
+        Submission.belongsToMany(models.CI_Waste, { through: 'ci_submission_waste' });
+        // A submission can belong to many improvements
+        Submission.belongsToMany(models.CI_Improvement, { through: 'ci_submission_improvement' });
         // A submission can belong to many resources
-        Submission.belongsToMany(models.Resource, { through: 'ci_resources' });
+        Submission.belongsToMany(models.CI_Resource, { through: 'ci_submission_resource' });
+        // A submission can belong to many comments
+        Submission.belongsToMany(models.CI_Comment, { through: 'ci_submission_comment' });
+        // A submission can belongs one reward
+        Submission.belongsTo(models.CI_Reward);
+        // A submission can belongs one approval
+        Submission.belongsTo(models.CI_Approval);
     };
     return Submission;
 };

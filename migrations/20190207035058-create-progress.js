@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('ci_processes', {
+    return queryInterface.createTable('ci_progress', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -12,6 +12,10 @@ module.exports = {
           type: Sequelize.STRING,
           unique: true,
           allowNull: false
+      },
+      step: {
+          type: Sequelize.INTEGER,
+          autoIncrement: false,
       },
       description: {
           type: Sequelize.STRING,
@@ -27,6 +31,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('ci_processes');
+    return queryInterface.dropTable('ci_progress');
   }
 };

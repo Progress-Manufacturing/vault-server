@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('ci_areas_affected', {
+    return queryInterface.createTable('ci_improvements', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -27,6 +27,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('ci_areas_affected');
+    return queryInterface.dropTable('ci_improvements');
   }
 };

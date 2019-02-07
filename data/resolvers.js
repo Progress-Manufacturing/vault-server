@@ -4,14 +4,16 @@ const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
 const { 
     User,
-    Submission,
-    AreasAffected,
-    Process,
-    Progress,
-    Resource,
-    Reward,
-    Waste} = require('../models');
-// const jwt = require('jsonwebtoken');
+    CI_Submission,
+    CI_Area,
+    CI_Waste, 
+    CI_Improvement,
+    CI_Resource,
+    CI_Reward,
+    CI_Approval,
+    CI_Comment,
+    CI_Progress
+    } = require('../models');
 require('dotenv').config();
 
 const resolvers = {
@@ -24,69 +26,78 @@ const resolvers = {
         async fetchUser(_, { id }) {
             return await User.findById(id);
         },
-
         // Fetch all submissions
         async allSubmissions() {
-            return await Submission.all();
+            return await CI_Submission.all();
         },
         // Get a post by it ID
         async fetchSubmission(_, { id }) {
-            return await Submission.findById(id);
+            return await CI_Submission.findById(id);
         },
-
-        // Fetch all comments
-        async allComment() {
-            return await Comment.all();
+        // Fetch all areas 
+        async allAreas(_, args, { user }) {
+            return await CI_Area.all();
         },
-        // Get a comment by ID
-        async fetchComment(_, { id }) {
-            return await Comment.findById(id);
+        // Get an area by it's ID
+        async fetchArea(_, { id }) {
+            return await CI_Area.findById(id);
         },
-
-        // Fetch all areas affected
-        async allAreasAffected(_, args, { user }) {
-            return await AreasAffected.all();
+        // Fetch all wastes 
+        async allWastes(_, args, { user }) {
+            return await CI_Waste.all();
         },
-        // Get a area affected by it ID
-        async fetchAreaAffected(_, { id }) {
-            return await AreaAffected.findById(id);
-        },
-
-        // Fetch all wastes
-        async allWaste(_, args, { user }) {
-            return await Waste.all();
-        },
-        // Get a waste by it ID
+        // Get an waste by it's ID
         async fetchWaste(_, { id }) {
-            return await Waste.findById(id);
+            return await CI_Waste.findById(id);
         },
-
-        // Fetch all processes
-        async allProcess(_, args, { user }) {
-            return await Process.all();
+        // Fetch all improvements
+        async allImprovements(_, args, { user }) {
+            return await CI_Improvement.all();
         },
-        // Get a process by it ID
-        async fetchProcess(_, { id }) {
-            return await Process.findById(id);
+        // Get an improvement by it's ID
+        async fetchImprovement(_, { id }) {
+            return await CI_Improvement.findById(id);
         },
-
         // Fetch all resources
-        async allResource(_, args, { user }) {
-            return await Process.all();
+        async allResources(_, args, { user }) {
+            return await CI_Resource.all();
         },
-        // Get a process by it ID
+        // Get an resource by it's ID
         async fetchResource(_, { id }) {
-            return await Resource.findById(id);
+            return await CI_Resource.findById(id);
         },
-
         // Fetch all rewards
-        async allReward(_, args, { user }) {
-            return await Reward.all();
+        async allRewards(_, args, { user }) {
+            return await CI_Rewards.all();
         },
-        // Get a process by it ID
+        // Get an reward by it's ID
         async fetchReward(_, { id }) {
-            return await Reward.findById(id);
+            return await CI_Reward.findById(id);
         },
+        // Fetch all approvals
+        async allApprovals(_, args, { user }) {
+            return await CI_Approvals.all();
+        },
+        // Get an approval by it's ID
+        async fetchApproval(_, { id }) {
+            return await CI_Approval.findById(id);
+        },
+        // Fetch all Comments
+        async allComments(_, args, { user }) {
+            return await CI_Comments.all();
+        },
+        // Get an approval by it's ID
+        async fetchComment(_, { id }) {
+            return await CI_Comment.findById(id);
+        },
+        // Fetch all progresses
+        async allProgresses(_, args, { user }) {
+            return await CI_Progresses.all();
+        },
+        // Get an progress by it's ID
+        async fetchProgress(_, { id }) {
+            return await CI_Progress.findById(id);
+        }
     },
     Mutation: {
         // Create new user
@@ -116,64 +127,55 @@ const resolvers = {
             return user;
         },
         // Add a new submission
-        async addSubmission(_, { description, areasAffected, wastesSeen, processImproved, proposedSolution, resourcesNeeded, resourcesExplanation, solutionMeasurement, status }) {
-            const user = await User.findOne({ where: { id: authUser.id } });
-            const submission = await Submission.create({
+        async addSubmission(_, { description, improvementExplanation, proposedSolution, resourceExplanation, solutionMeasurement, areas, status }) {
+            const user = await User.findOne({ where: { id: user.id } });
+            const submission = await CI_Submission.create({
                 userId: user.id,
                 description,                
                 improvementExplanation,
                 proposedSolution,
-                resourcesExplanation,
+                resourceExplanation,
                 solutionMeasurement,
                 status
             });
             // Assign necessary information to submission
-            await submission.setTags(areasAffected);
-            await submission.setTags(wastesSeen);
-            await submission.setTags(processImproved);
-            await submission.setTags(resourcesNeeded);
+            await submission.setAreas(areas);
             return submission;
         },
         // Update a particular submission
-        async updateSubmission(_, { id, supervisor, lead, status, rewardId }) {
+        async updateSubmission(_, { id, supervisor, lead, reward, status }) {
             // fetch the submission by it ID
-            const submission = await Submission.findById(id);
+            const submission = await CI_Submission.findById(id);
             // Update the submission
             await submission.update({
                 supervisor,
                 lead,               
-                rewardId,
+                reward,
                 status
             });
             return submission;
         },
-        // Add a new comment
-        async addComment(_, { content }) {
-            return await Comment.create({
-                content
-            });
-        },
         // Add new area affected
-        async addAreaAffected(_, { name, description }) {
-            return await AreaAffected.create({
+        async addArea(_, { name, description }) {
+            return await CI_Area.create({
                 name,
                 description
             });
         },
         // Update a particular area affected
-        async updateAreaAffected(_, { id, name, description }) {
+        async updateArea(_, { id, name, description }) {
             // fetch the area affected by it's ID
-            const areaAffected = await AreaAffected.findById(id);
+            const area = await CI_Area.findById(id);
             // Update the area affected
-            await areaAffected.update({
+            await area.update({
                 name,
                 description
             });
-            return areaAffected;
+            return area;
         },
         // Add new waste
         async addWaste(_, { name, description }) {
-            return await Waste.create({
+            return await CI_Waste.create({
                 name,
                 description
             });
@@ -181,35 +183,35 @@ const resolvers = {
         // Update a particular waste
         async updateWaste(_, { id, name, description }) {
             // fetch the waste by it's ID
-            const waste = await Waste.findById(id);
-            // Update the waste
+            const waste = await CI_Waste.findById(id);
+            // Update the area affected
             await waste.update({
                 name,
                 description
             });
             return waste;
         },
-        // Add new process
-        async addProcess(_, { name, description }) {
-            return await Process.create({
+        // Add new improvement
+        async addImprovement(_, { name, description }) {
+            return await CI_Improvement.create({
                 name,
                 description
             });
         },
-        // Update a particular process
-        async updateProcess(_, { id, name, description }) {
-            // fetch the process by it's ID
-            const process = await Process.findById(id);
-            // Update the process
-            await process.update({
+        // Update a particular improvement
+        async updateImprovement(_, { id, name, description }) {
+            // fetch the improvement by it's ID
+            const improvement = await CI_Improvement.findById(id);
+            // Update the area affected
+            await improvement.update({
                 name,
                 description
             });
-            return process;
+            return improvement;
         },
         // Add new resource
         async addResource(_, { name, description }) {
-            return await Resource.create({
+            return await CI_Resource.create({
                 name,
                 description
             });
@@ -217,8 +219,8 @@ const resolvers = {
         // Update a particular resource
         async updateResource(_, { id, name, description }) {
             // fetch the resource by it's ID
-            const resource = await Resource.findById(id);
-            // Update the resource
+            const resource = await CI_Resource.findById(id);
+            // Update the area affected
             await resource.update({
                 name,
                 description
@@ -227,21 +229,69 @@ const resolvers = {
         },
         // Add new reward
         async addReward(_, { name, description }) {
-            return await Reward.create({
+            return await CI_Reward.create({
                 name,
                 description
             });
         },
         // Update a particular reward
-        async updateReward(_, { id, name, description }) {
-            // fetch the reward by it's ID
-            const reward = await Reward.findById(id);
+        async updateReward(_, { id, name, description, status  }) {
+            // fetch the reward by it ID
+            const reward = await CI_Reward.findById(id);
             // Update the reward
             await reward.update({
                 name,
-                description
+                description,
+                status
             });
             return reward;
+        },
+        // Add new approval
+        async addApproval(_, { name, description }) {
+            return await CI_Approval.create({
+                name,
+                description
+            });
+        },
+        // Update a particular approval
+        async updateApproval(_, { id, name, description, status  }) {
+            // fetch the approval by it ID
+            const approval = await CI_Approval.findById(id);
+            // Update the Approval
+            await approval.update({
+                name,
+                description,
+                status
+            });
+            return approval;
+        },
+        // Add new comment
+        async addComment(_, { content }) {
+            return await CI_Comment.create({
+                name,
+                description
+            });
+        },
+        // Add new progress
+        async addProgress(_, { name, step, description }) {
+            return await CI_Progress.create({
+                name,
+                step,
+                description
+            });
+        },
+        // Update a particular progress
+        async updateProgress(_, { id, name, step, description  }) {
+            // fetch the progress by it ID
+            const progress = await CI_Progress.findById(id);
+            // Update the progress
+            await progress.update({
+                name,
+                step,
+                description,
+                status
+            });
+            return progress;
         },
     },
     User: {
@@ -256,42 +306,30 @@ const resolvers = {
             return await submission.getUser();
         },
         // Fetch all areas affected that a submission belongs to
-        async areasAffected(submission) {
-            return await submission.getAreaAffected();
+        async areas(submission) {
+            return await submission.getAreas();
         },
-        // Fetch all wastes that a submission belongs to
-        async waste(submission) {
-            return await submission.getWaste();
-        },
-        // Fetch all processes that a submission belongs to
-        async process(submission) {
-            return await submission.getProcess();
-        },
-        // Fetch all resources that a submission belongs to
-        async resource(submission) {
-            return await submission.getResource();
-        },
-        // Fetch all rewards that a submission belongs to
-        async reward(submission) {
-            return await submission.getReward();
+        async comments(submission) {
+            return await submission.getComments();
         }
+
     },
-    AreaAffected: {
+    Area: {
         // Fetch all submissions belonging to a area affected
-        async submissions(areaAffected) {
-            return await areaAffected.getSubmission();
+        async submissions(area) {
+            return await area.getSubmission();
         }
     },
     Waste: {
-        // Fetch all submissions belonging to a area affected
+        // Fetch all submissions belonging to a waste
         async submissions(waste) {
             return await waste.getSubmission();
         }
     },
-    Process: {
-        // Fetch all submissions belonging to a process
-        async submissions(process) {
-            return await process.getSubmission();
+    Improvement: {
+        // Fetch all submissions belonging to a improvement
+        async submissions(improvement) {
+            return await improvement.getSubmission();
         }
     },
     Resource: {
@@ -304,6 +342,18 @@ const resolvers = {
         // Fetch all submissions belonging to a reward
         async submissions(reward) {
             return await reward.getSubmission();
+        }
+    },
+    Approval: {
+        // Fetch all submissions belonging to a approval
+        async submissions(approval) {
+            return await approval.getSubmission();
+        }
+    },    
+    Progress: {
+        // Fetch all submissions belonging to a progress
+        async submissions(progress) {
+            return await progress.getSubmission();
         }
     },
     DateTime: new GraphQLScalarType({

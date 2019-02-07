@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const SubmissionWaste = sequelize.define('CI_SubmissionWaste', {
+    const SubmissionApproval = sequelize.define('CI_SubmissionApproval', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         },
-        wasteId:{
+        approvalId:{
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         }
     });
-    return SubmissionWaste;
+    return SubmissionApproval;
 };
