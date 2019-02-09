@@ -15,6 +15,8 @@ module.exports = {
       },
       step: {
           type: Sequelize.INTEGER,
+          unique: true,
+          allowNull: false,
           autoIncrement: false,
       },
       description: {

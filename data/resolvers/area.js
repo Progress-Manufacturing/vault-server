@@ -15,7 +15,7 @@ const area = {
     Mutation: {
         // Add new area affected
         async addArea(_, { name, description }) {
-            return await CI_Area.create({
+            return await Area.create({
                 name,
                 description
             });
@@ -23,7 +23,7 @@ const area = {
         // Update a particular area affected
         async updateArea(_, { id, name, description }) {
             // fetch the area affected by it's ID
-            const area = await CI_Area.findById(id);
+            const area = await Area.findById(id);
             // Update the area affected
             await area.update({
                 name,

@@ -12,42 +12,35 @@ module.exports = {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false
             },
-            supervisorId: {
-                type: Sequelize.INTEGER.UNSIGNED,
-                allowNull: true
-            },
-            leadId: {
-              type: Sequelize.INTEGER.UNSIGNED,
-              allowsNull: true
-            },
-            rewardId: {
-                type: Sequelize.INTEGER.UNSIGNED,
-                allowNull: true
-            },
             description: {
                 type: Sequelize.STRING,
                 allowNull: false
             },
             improvementExplanation: {
-                type: Sequelize.STRING,
-                allowNull: true
+                type: Sequelize.STRING
             },
             proposedSolution: {
-                type: Sequelize.STRING,
-                allowNull: true
+                type: Sequelize.STRING
             },
             resourceExplanation: {
-                type: Sequelize.STRING,
-                allowNull: true              
+                type: Sequelize.STRING
             },
             solutionMeasurement: {
-                type: Sequelize.STRING,
-                allowNull: true        
+                type: Sequelize.STRING
             },
-            status: {
-                type: Sequelize.BOOLEAN,
+            progressId: {
+                type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,
-                defaultValue: false
+                defaultValue: 1
+            },
+            approvalId: {
+                type: Sequelize.INTEGER.UNSIGNED
+            },
+            leadId: {
+                type: Sequelize.INTEGER.UNSIGNED
+            },
+            rewardId: {
+                type: Sequelize.INTEGER.UNSIGNED
             },
             createdAt: {
                 type: Sequelize.DATE,

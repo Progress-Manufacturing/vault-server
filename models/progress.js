@@ -14,15 +14,17 @@ module.exports = (sequelize, DataTypes) => {
         },
         step: {
             type: DataTypes.INTEGER,
+            unique: true,
+            allowNull: false,
             autoIncrement: false
         },
         description: DataTypes.STRING
     }, {
         tableName: 'ci_progress'
     });
-    Progress.associate = function(models) {
-        // A progress can have many submissions
-        Progress.belongsToMany(models.Submission, { through: 'ci_submission_progress' });
-    };
+    // Progress.associate = function(models) {
+    //     A progress can have many submissions
+    //     Progress.hasMany(models.Submission);        
+    // };
     return Progress;
 };

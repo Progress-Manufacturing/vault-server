@@ -4,10 +4,10 @@ const user = gql`
         id: Int!
         firstName: String!
         lastName: String
-        admin: Boolean!
-        supervisor: Boolean!
-        lead: Boolean!
         email: String!
+        supervisor: Int!
+        isAdmin: Boolean!
+        isSupervisor: Boolean
         submissions: [Submission]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
@@ -23,18 +23,18 @@ const user = gql`
             firstName: String!,
             lastName: String,
             email: String!,
-            admin: Boolean,
-            supervisor: Boolean,
-            lead: Boolean
+            supervisor: Int!,
+            isAdmin: Boolean,
+            isSupervisor: Boolean
         ): User
         updateUser (
             id: Int!,
             firstName: String!,
             lastName: String,
             email: String!,
-            admin: Boolean,
-            supervisor: Boolean,
-            lead: Boolean
+            supervisor: Int,
+            isAdmin: Boolean,
+            isSupervisor: Boolean            
         ): User
     }
 `;

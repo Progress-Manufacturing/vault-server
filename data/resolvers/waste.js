@@ -24,7 +24,7 @@ const waste = {
         async updateWaste(_, { id, name, description }) {
             // fetch the waste by it's ID
             const waste = await Waste.findById(id);
-            // Update the area affected
+            // Update the waste
             await waste.update({
                 name,
                 description

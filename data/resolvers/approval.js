@@ -5,7 +5,7 @@ const approval = {
     Query: {
         // Fetch all approvals
         async allApprovals(_, args, { user }) {
-            return await Approvals.all();
+            return await Approval.all();
         },
         // Get an approval by it's ID
         async fetchApproval(_, { id }) {

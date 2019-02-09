@@ -5,7 +5,7 @@ const reward = {
     Query: {
         // Fetch all rewards
         async allRewards(_, args, { user }) {
-            return await Rewards.all();
+            return await Reward.all();
         },
         // Get an reward by it's ID
         async fetchReward(_, { id }) {

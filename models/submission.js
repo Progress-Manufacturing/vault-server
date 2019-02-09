@@ -11,45 +11,42 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         },
-        supervisorId: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            allowNull: true
-        },
-        leadId: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            allowNull: true
-        },
         description: {
             type: DataTypes.STRING,
             allowNull: false
         },
         improvementExplanation: {
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.STRING
         },
         proposedSolution: {
-            type: DataTypes.STRING,
-            allowNull: true
+            type: DataTypes.STRING
         },
         resourceExplanation: {
-            type: DataTypes.STRING,
-            allowNull: true              
+            type: DataTypes.STRING
         },
         solutionMeasurement: {
-            type: DataTypes.STRING,
-            allowNull: true        
+            type: DataTypes.STRING
         },
-        status: {
-            type: DataTypes.BOOLEAN,
+        progressId: {
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
-            defaultValue: false
-        }
+            defaultValue: 1
+        },
+        approvalId: {
+            type: DataTypes.INTEGER.UNSIGNED
+        },
+        leadId: {
+            type: DataTypes.INTEGER.UNSIGNED
+        },
+        rewardId: {
+            type: DataTypes.INTEGER.UNSIGNED
+        },
     }, {
         tableName: 'ci_submissions'
     });
     Submission.associate = function(models) {
         // A submission belongs to a user
-        Submission.belongsTo(models.User);
+        Submission.belongsTo(models.User, {as: 'user'});
         // A submission can belong to many areas
         Submission.belongsToMany(models.Area, { through: 'ci_submission_area' });
         // A submission can belong to many wastes
@@ -60,10 +57,14 @@ module.exports = (sequelize, DataTypes) => {
         Submission.belongsToMany(models.Resource, { through: 'ci_submission_resource' });
         // A submission can belong to many comments
         Submission.belongsToMany(models.Comment, { through: 'ci_submission_comment' });
-        // A submission can belongs one reward
-        Submission.belongsTo(models.Reward);
-        // A submission can belongs one approval
-        Submission.belongsTo(models.Approval);
+        // A submission belongs one progress
+        Submission.belongsTo(models.Progress, {as: 'progress'});
+        // A submission belongs one approval
+        Submission.belongsTo(models.Approval, {as: 'approval'});
+        // TODO: Add connection to a lead for the submission
+        // A submission belongs one reward
+        Submission.belongsTo(models.Reward, {as: 'reward'});
+        
     };
     return Submission;
 };

@@ -5,7 +5,7 @@ const progress = {
     Query: {
         // Fetch all progresses
         async allProgresses(_, args, { user }) {
-            return await Progresses.all();
+            return await Progress.all();
         },
         // Get an progress by it's ID
         async fetchProgress(_, { id }) {
@@ -22,7 +22,7 @@ const progress = {
             });
         },
         // Update a particular progress
-        async updateProgress(_, { id, name, step, description  }) {
+        async updateProgress(_, { id, name, step, description }) {
             // fetch the progress by it ID
             const progress = await Progress.findById(id);
             // Update the progress
@@ -38,7 +38,7 @@ const progress = {
     Progress: {
         // Fetch all submissions belonging to a progress
         async submissions(progress) {
-            return await progress.getSubmission();
+            return await progress.getSubmissions();
         }
     }
 };

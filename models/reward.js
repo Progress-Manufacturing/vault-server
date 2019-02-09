@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         tableName: 'ci_rewards'
     });
-    Reward.associate = function(models) {
-        // A reward can have many submissions
-        Reward.belongsToMany(models.Submission, { through: 'ci_submission_reward' });
-    };
+    // Reward.associate = function(models) {
+    //     // A reward can have many submissions
+    //     Reward.belongsToMany(models.Submission, { through: 'ci_submission_reward' });
+    // };
     return Reward;
 };

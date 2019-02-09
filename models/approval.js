@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     },{
         tableName: "ci_approvals"
     });
-    Approval.associate = function(models) {
-        // A approval can have many submissions
-        Approval.belongsToMany(models.Submission, { through: 'ci_submission_approval' });
-    };
+    // Approval.associate = function(models) {
+    //     // A approval can have many submissions
+    //     Approval.belongsToMany(models.Submission, { through: 'ci_submission_approval' });
+    // };
     return Approval;
 };

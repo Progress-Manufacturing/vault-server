@@ -4,22 +4,20 @@ const submission = gql`
     type Submission {
         id: Int!
         user: User!
-        supervisor: User!
-        lead: User!
         description: String! # description of the problem seen
-        improvementExplanation: String! # explanation of the issue
-        proposedSolution: String! # proposed solution of the issue
-        resourceExplanation: String! # explanation of why the resources are needed
-        solutionMeasurement: String! # how the solution will be measured
         areas: [Area!]! # areas affected by the problem
         wastes: [Waste!]!
         improvements: [Improvement!]!
+        improvementExplanation: String # explanation of the issue
+        proposedSolution: String # proposed solution of the issue
         resources: [Resource!]!
-        status: Boolean!
-        reward: Reward!
-        progress: Progress!
-        approval: Approval!
-        comments: [Comment!]!
+        resourceExplanation: String # explanation of why the resources are needed
+        solutionMeasurement: String # how the solution will be measured
+        progress: Progress
+        approval: Approval
+        lead: User
+        reward: Reward
+        comments: [Comment!]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
@@ -32,21 +30,21 @@ const submission = gql`
     extend type Mutation {
         addSubmission (
             description: String!, 
-            improvementExplanation: String!,
-            proposedSolution: String!,
-            resourceExplanation: String!,
-            solutionMeasurement: String!,
             areas: [Int!]!,
             wastes: [Int!]!,
             improvements: [Int!]!,
+            improvementExplanation: String,
+            proposedSolution: String,
             resources: [Int!]!,
-            status: Boolean
+            resourceExplanation: String!,
+            solutionMeasurement: String!
         ) : Submission
         updateSubmission (
             id: Int!,
-            lead: Int!,
-            supervisor: Int!
-            reward: Int!
+            progress: Int!,
+            approval: Int!,
+            lead: Int,
+            reward: Int,
         ) : Submission
     }
 `;

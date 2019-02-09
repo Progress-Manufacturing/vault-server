@@ -2,7 +2,7 @@
 const express = require('express');
 const schema = require('./data/schema');
 require('dotenv').config();
-const PORT = 3000;
+const PORT = 8000;
 const app = express();
 
 // Graphiql for testing the API out

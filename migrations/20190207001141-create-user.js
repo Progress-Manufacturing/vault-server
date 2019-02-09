@@ -15,22 +15,23 @@ module.exports = {
             lastName: {
                 type: Sequelize.STRING
             },
-            admin: {
-                type: Sequelize.BOOLEAN,
-                allowNull: true
-            },
-            supervisor: {
-                type: Sequelize.BOOLEAN,
-                allowNull: true
-            },
-            lead: {
-                type: Sequelize.BOOLEAN,
-                allowNull: true
-            },
             email: {
                 type: Sequelize.STRING,
                 unique: true,
                 allowNull: false
+            },
+            supervisor: {
+                type: Sequelize.INTEGER,
+                autoIncrement: false,
+                allowNull: true
+            },
+            isAdmin: {
+                type: Sequelize.BOOLEAN,
+                allowNull: true
+            },
+            isSupervisor: {
+                type: Sequelize.BOOLEAN,
+                allowNull: true
             },
             createdAt: {
                 type: Sequelize.DATE,

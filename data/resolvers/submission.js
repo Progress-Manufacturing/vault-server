@@ -1,4 +1,4 @@
-const { Submission } = require('../../models');
+const { Submission, Progress, User, Reward, Approval } = require('../../models');
 require('dotenv').config();
 
 const submission = {
@@ -14,50 +14,85 @@ const submission = {
     },
     Mutation: {
          // Add a new submission
-         async addSubmission(_, { description, improvementExplanation, proposedSolution, resourceExplanation, solutionMeasurement, areas, wastes, improvements, resources, status }) {
+         async addSubmission(_, { 
+                description,
+                areas,
+                wastes,
+                improvements,
+                improvementExplanation,
+                proposedSolution,
+                resources,
+                resourceExplanation,
+                solutionMeasurement
+            }) {
             const submission = await Submission.create({
-                userId: 1,
+                userId: 28,
                 description,                
                 improvementExplanation,
                 proposedSolution,
                 resourceExplanation,
-                solutionMeasurement,
-                status
+                solutionMeasurement
             });
             // Assign necessary information to submission
-            await submission.setAreas(areas);
-            await submission.setWastes(wastes);
-            await submission.setImprovements(improvements);
-            await submission.setResources(resources);
+            await Promise.all([                
+                submission.setAreas(areas),                
+                submission.setWastes(wastes),
+                submission.setImprovements(improvements),
+                submission.setResources(resources)
+            ]);
             return submission;
         },
         // Update a particular submission
-        async updateSubmission(_, { id, supervisor, lead, reward, status }) {
+        async updateSubmission(_, { id, progress, approval, lead, reward }) {
             // fetch the submission by it ID
             const submission = await Submission.findById(id);
             // Update the submission
             await submission.update({
-                supervisor,
-                lead,               
-                reward,
-                status
+                progressId: progress,
+                approvalId: approval,
+                leadId: lead,
+                rewardId: reward,
             });
             return submission;
         }
     },
     Submission: {
-        // Fetch the author of a particular submission
+        // Fetch the user of a particular submission
         async user(submission) {
-            return await submission.getUser();
-        },
+            return await User.findById(submission.userId);
+        },        
         // Fetch all areas affected that a submission belongs to
         async areas(submission) {
             return await submission.getAreas();
         },
-        async comments(submission) {
-            return await submission.getComments();
+        // Fetch all wastes that a submission belongs to
+        async wastes(submission) {
+            return await submission.getWastes();
+        },
+        // Fetch all improvements that a submission belongs to
+        async improvements(submission) {
+            return await submission.getImprovements();
+        },
+        // Fetch all improvements that a submission belongs to
+        async resources(submission) {
+            return await submission.getResources();
+        },
+        // Fetch the progress of a particulat submission
+        async progress(submission) {
+            return await submission.getProgress();
+        },
+        // Fetch the approval of a particular submission
+        async approval(submission) {
+            return await submission.getApproval();
+        },
+        // Fetch the lead of a particular submission
+        async lead(submission) {
+            return await User.findById(submission.leadId);
+        },
+        // Fetch the reward of a particular submission
+        async reward(submission) {
+            return await submission.getReward();
         }
-
     }
 };
 
