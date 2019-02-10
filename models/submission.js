@@ -12,20 +12,20 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('long'),
             allowNull: false
         },
         improvementExplanation: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT('long'),
         },
         proposedSolution: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT('long'),
         },
         resourceExplanation: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT('long'),
         },
         solutionMeasurement: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT('long'),
         },
         progressId: {
             type: DataTypes.INTEGER.UNSIGNED,

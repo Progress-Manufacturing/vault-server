@@ -5,7 +5,7 @@ const submission = {
     Query: {
         // Fetch all submissions
         async allSubmissions() {
-            return await Submission.all();
+            return await Submission.all()
         },
         // Get a post by it ID
         async fetchSubmission(_, { id }) {

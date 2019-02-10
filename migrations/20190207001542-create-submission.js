@@ -13,20 +13,20 @@ module.exports = {
                 allowNull: false
             },
             description: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT('long'),
                 allowNull: false
             },
             improvementExplanation: {
-                type: Sequelize.STRING
+                type: Sequelize.TEXT('long'),
             },
             proposedSolution: {
-                type: Sequelize.STRING
+                type: Sequelize.TEXT('long'),
             },
             resourceExplanation: {
-                type: Sequelize.STRING
+                type: Sequelize.TEXT('long'),
             },
             solutionMeasurement: {
-                type: Sequelize.STRING
+                type: Sequelize.TEXT('long'),
             },
             progressId: {
                 type: Sequelize.INTEGER.UNSIGNED,
