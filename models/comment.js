@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         },
+        commentType: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            allowNull: false
+        },
         content: {
             type: DataTypes.STRING,
             allowNull: false

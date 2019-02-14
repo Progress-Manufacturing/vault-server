@@ -1,22 +1,3 @@
-'use strict';
-require('dotenv').config();
-module.exports = {
-    "development": {
-        "username": process.env.DB_USERNAME,
-        "password": process.env.DB_PASSWORD,
-        "database": process.env.DB_NAME,
-        "host": process.env.DB_HOST,
-        "dialect": "mysql"
-    },
-    "production": {
-        "username": process.env.DB_USERNAME,
-        "password": process.env.DB_PASSWORD,
-        "database": process.env.DB_NAME,
-        "host": process.env.DB_HOST,
-        "dialect": "mysql"
-    }
-};
-
 exports.creds = {
     // Required
     identityMetadata: 'https://login.microsoftonline.com/progressmfg.onmicrosoft.com/v2.0/.well-known/openid-configuration', 
