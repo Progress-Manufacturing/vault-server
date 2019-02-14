@@ -5,26 +5,14 @@ module.exports = {
             id: {
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
+                unique: true,
                 primaryKey: true,
                 allowNull: false
             },
-            firstName: {
+            name: {
                 type: Sequelize.STRING,
                 allowNull: false
-            },
-            lastName: {
-                type: Sequelize.STRING
-            },
-            email: {
-                type: Sequelize.STRING,
-                unique: true,
-                allowNull: false
-            },
-            supervisor: {
-                type: Sequelize.INTEGER,
-                autoIncrement: false,
-                allowNull: true
-            },
+            },               
             isAdmin: {
                 type: Sequelize.BOOLEAN,
                 allowNull: true
