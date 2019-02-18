@@ -14,31 +14,23 @@ const user = {
     },
     Mutation: {
         // Create new user
-        async createUser(_, { firstName, lastName, email, supervisor, isAdmin, isSupervisor }) {
+        async createUser(_, { id, name, email, token }) {
             return await User.create({
-                firstName,
-                lastName,
+                name,               
                 email,
-                supervisor,
-                isAdmin,
-                isSupervisor
+                token
             });
         },
-        // Update a particular user
-        async updateUser(_, { id, firstName, lastName, email, supervisor, isAdmin, isSupervisor  }) {
-            // fetch the user by it ID
-            const user = await User.findById(id);
-            // Update the user
-            await user.update({
-                firstName,
-                lastName,
-                email,
-                supervisor,
-                isAdmin,
-                isSupervisor
-            });
-            return user;
-        }
+        // // Update a particular user
+        // async updateUser(_, { id, isAdmin }) {
+        //     // fetch the user by it ID
+        //     const user = await User.findById(id);
+        //     // Update the user
+        //     await user.update({
+        //         isAdmin
+        //     });
+        //     return user;
+        // }
     },
     User: {
         // Fetch all submissions created by a user

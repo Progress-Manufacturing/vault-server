@@ -9,9 +9,9 @@ module.exports = {
         allowNull: false
       },
       name: {
-          type: Sequelize.STRING,
-          unique: true,
-          allowNull: false
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
       },
       description: {
           type: Sequelize.STRING,

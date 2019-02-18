@@ -12,15 +12,15 @@ module.exports = {
             name: {
                 type: Sequelize.STRING,
                 allowNull: false
-            },               
-            isAdmin: {
-                type: Sequelize.BOOLEAN,
-                allowNull: true
-            },
-            isSupervisor: {
-                type: Sequelize.BOOLEAN,
-                allowNull: true
-            },
+            },        
+            email: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },     
+            token: {
+                type: Sequelize.TEXT('long'),
+                allowNull: false
+            },  
             createdAt: {
                 type: Sequelize.DATE,
                 allowNull: false

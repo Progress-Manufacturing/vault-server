@@ -11,9 +11,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        supervisor: DataTypes.INTEGER,
-        isAdmin: DataTypes.BOOLEAN,
-        isSupervisor: DataTypes.BOOLEAN
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        token: {
+            type: DataTypes.TEXT('long'),
+            allowNull: false
+        },  
     }, {
         tableName: 'users'
     });

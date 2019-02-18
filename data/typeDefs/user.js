@@ -2,12 +2,9 @@ const { gql } = require('apollo-server-express');
 const user = gql`
     type User {
         id: Int!
-        firstName: String!
-        lastName: String
+        name: String!
         email: String!
-        supervisor: Int!
-        isAdmin: Boolean!
-        isSupervisor: Boolean
+        token: String!
         submissions: [Submission]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
@@ -20,21 +17,8 @@ const user = gql`
 
     extend type Mutation {
         createUser (
-            firstName: String!,
-            lastName: String,
-            email: String!,
-            supervisor: Int!,
-            isAdmin: Boolean,
-            isSupervisor: Boolean
-        ): User
-        updateUser (
-            id: Int!,
-            firstName: String!,
-            lastName: String,
-            email: String!,
-            supervisor: Int,
-            isAdmin: Boolean,
-            isSupervisor: Boolean            
+            name: String!, 
+            email: String!
         ): User
     }
 `;
