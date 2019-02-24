@@ -26,6 +26,7 @@
     "graphql": "^14.1.1",
     "graphql-tools": "^4.0.4",
     "jsonwebtoken": "^8.4.0",
+    "jwks-rsa": "^1.4.0",
     "logger": "0.0.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.4.12",

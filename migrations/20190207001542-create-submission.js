@@ -28,6 +28,9 @@ module.exports = {
             solutionMeasurement: {
                 type: Sequelize.TEXT('long'),
             },
+            improvementAreaTypeId: {
+                type: Sequelize.INTEGER.UNSIGNED,
+            },
             progressId: {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,

@@ -13,6 +13,7 @@ const submission = gql`
         resources: [Resource!]!
         resourceExplanation: String # explanation of why the resources are needed
         solutionMeasurement: String # how the solution will be measured
+        improvementAreaType: ImprovementAreaType
         progress: Progress
         approval: Approval
         lead: User
@@ -43,6 +44,7 @@ const submission = gql`
             id: Int!,
             progress: Int!,
             approval: Int!,
+            improvementAreaType: Int!,
             lead: Int,
             reward: Int,
         ) : Submission

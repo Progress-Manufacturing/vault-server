@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
         solutionMeasurement: {
             type: DataTypes.TEXT('long'),
         },
+        improvementAreaTypeId: {
+            type: DataTypes.INTEGER.UNSIGNED
+        },
         progressId: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
@@ -61,10 +64,11 @@ module.exports = (sequelize, DataTypes) => {
         Submission.belongsTo(models.Progress, {as: 'progress'});
         // A submission belongs one approval
         Submission.belongsTo(models.Approval, {as: 'approval'});
-        // TODO: Add connection to a lead for the submission
+        // TODO: Add connection to a lead for the submission -- POSSIBLY
         // A submission belongs one reward
         Submission.belongsTo(models.Reward, {as: 'reward'});
-        
+
+        Submission.belongsTo(models.ImprovementAreaType, {as: 'improvement_area_type'});
     };
     return Submission;
 };

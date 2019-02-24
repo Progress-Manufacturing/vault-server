@@ -6,10 +6,12 @@ const comment = require('./comment');
 const approval = require('./approval');
 const area = require('./area');
 const improvement = require('./improvement');
+const improvementAreaType = require('./improvementareatype');
 const progress = require('./progress');
 const resource = require('./resource');
 const reward = require('./reward');
 const waste = require('./waste');
+const message = require('./message');
 
 const schemaArray = [
     root,
@@ -20,10 +22,12 @@ const schemaArray = [
     approval,
     area,
     improvement,
+    improvementAreaType,
     progress,
     resource,
     reward,
-    waste
+    waste,
+    message
 ];
 
 module.exports = schemaArray;

@@ -1,4 +1,4 @@
-const { Submission, Progress, User, Reward, Approval } = require('../../models');
+const { Submission, User } = require('../../models');
 require('dotenv').config();
 
 const submission = {
@@ -43,13 +43,14 @@ const submission = {
             return submission;
         },
         // Update a particular submission
-        async updateSubmission(_, { id, progress, approval, lead, reward }) {
+        async updateSubmission(_, { id, progress, approval, improvementAreaType, lead, reward }) {
             // fetch the submission by it ID
             const submission = await Submission.findById(id);
             // Update the submission
             await submission.update({
                 progressId: progress,
                 approvalId: approval,
+                improvementAreaTypeId: improvementAreaType,
                 leadId: lead,
                 rewardId: reward,
             });
