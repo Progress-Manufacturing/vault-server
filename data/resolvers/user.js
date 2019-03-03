@@ -12,6 +12,9 @@ const user = {
         // Get a user by Email
         async fetchUser(_, { email }) {
             return await User.find({ where: { email } });
+        },
+        async me(parent, args, context, info) {
+            return await User.findByPk(context.authScope);
         }
     },
     Mutation: {
@@ -46,8 +49,8 @@ const user = {
     },
     AuthPayload: {
         async user(id) {  
-            const user = await User.findById(id.user);
-            return user;
+            const user = User.findById(id.user);
+            return await user;
         }
     }
 };

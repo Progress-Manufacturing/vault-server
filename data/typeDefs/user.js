@@ -14,11 +14,17 @@ const user = gql`
         user: User!
     }
 
+    type LoggedInUserPayload {
+        id: Int
+    }
+
     extend type Query {
         allUsers: [User]
         fetchUser(
             email: String!
         ): User
+        me: User
+        loggedInUser: LoggedInUserPayload
     }
 
     extend type Mutation {
