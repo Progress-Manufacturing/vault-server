@@ -16,11 +16,7 @@ module.exports = {
             email: {
                 type: Sequelize.STRING,
                 allowNull: false
-            },     
-            token: {
-                type: Sequelize.TEXT('long'),
-                allowNull: false
-            },  
+            },
             createdAt: {
                 type: Sequelize.DATE,
                 allowNull: false

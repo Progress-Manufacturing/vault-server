@@ -14,11 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         email: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        token: {
-            type: DataTypes.TEXT('long'),
-            allowNull: false
-        },  
+        }
     }, {
         tableName: 'users'
     });
