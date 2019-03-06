@@ -21,7 +21,7 @@ const user = gql`
     extend type Query {
         allUsers: [User]
         fetchUser(
-            email: String!
+            id: Int!
         ): User
         me: User
         loggedInUser: LoggedInUserPayload

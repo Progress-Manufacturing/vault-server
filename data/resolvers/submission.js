@@ -24,9 +24,14 @@ const submission = {
                 resources,
                 resourceExplanation,
                 solutionMeasurement
-            }) {
+            }, { authScope }) {
+            
+            if (!authScope) {
+                throw new Error('You must log in to continue!')
+            }
+            
             const submission = await Submission.create({
-                userId: 28,
+                userId: authScope,
                 description,                
                 improvementExplanation,
                 proposedSolution,

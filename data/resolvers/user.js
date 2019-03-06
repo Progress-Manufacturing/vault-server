@@ -9,9 +9,9 @@ const user = {
         async allUsers() {
             return await User.all();
         },
-        // Get a user by Email
-        async fetchUser(_, { email }) {
-            return await User.find({ where: { email } });
+        // Get a user by ID
+        async fetchUser(_, { id }) {
+            return await User.findByPk(id);
         },
         async me(parent, args, context, info) {
             return await User.findByPk(context.authScope);
@@ -21,7 +21,7 @@ const user = {
         // Authenticate User
         async login(_, { msalToken }) {
             const login_user = msalToken ? jwtDecode(msalToken) : null;
-            const email = login_user.preferred_username;
+            const email = login_user.unique_name;
             const user = await User.find({ where: { email } });    
             
             if (!user) {

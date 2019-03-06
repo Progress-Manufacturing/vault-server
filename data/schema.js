@@ -6,10 +6,13 @@ const resolvers = require('./resolvers');
 
 
 function authScope(req) {
-    const Authorization = req.get("Authorization")            
+    const Authorization = req.get("Authorization")
+    
     if(Authorization) {
         const token = Authorization.replace('Bearer ', '')
+        console.info(jwt.decode(token))
         const { userId } = jwt.verify(token, process.env.JWT_SECRET)
+        
         return userId
     }
 }
