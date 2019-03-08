@@ -15,7 +15,8 @@ const user = gql`
     }
 
     type LoggedInUserPayload {
-        id: Int
+        token: String!
+        user: User!
     }
 
     extend type Query {
@@ -23,13 +24,13 @@ const user = gql`
         fetchUser(
             id: Int!
         ): User
-        me: User
-        loggedInUser: LoggedInUserPayload
+        me: LoggedInUserPayload
     }
 
     extend type Mutation {
         login ( 
-            msalToken: String!
+            msalToken: String!,
+            accessToken: String!
         ): AuthPayload
     }
 `;

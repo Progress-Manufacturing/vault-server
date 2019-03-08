@@ -14,14 +14,17 @@ const user = {
             return await User.findByPk(id);
         },
         async me(parent, args, context, info) {
-            return await User.findByPk(context.authScope);
+            return await { 
+                token: context.authScope.accessToken,
+                user: User.findByPk(context.authScope.userId),
+            }
         }
     },
     Mutation: {
         // Authenticate User
-        async login(_, { msalToken }) {
+        async login(_, { msalToken, accessToken }) {
             const login_user = msalToken ? jwtDecode(msalToken) : null;
-            const email = login_user.unique_name;
+            const email = login_user.preferred_username;
             const user = await User.find({ where: { email } });    
             
             if (!user) {
@@ -36,10 +39,10 @@ const user = {
                 })
             } else {
                 console.info(`User with email: ${email}, already exists.`);
-            } 
+            }
 
             return await {
-                token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
+                token: jwt.sign({ userId: user.id, accessToken: accessToken }, process.env.JWT_SECRET),
                 user: user.id
             };
         }
