@@ -10,9 +10,9 @@ function authScope(req) {
     if(Authorization) {
         const token = Authorization.replace('Bearer ', '')
         const { userId } = jwt.verify(token, process.env.JWT_SECRET)
-        const { accessToken } = jwt.decode(token)
-
-        return { userId, accessToken }
+        const { idToken } = jwt.decode(token)
+        
+        return { userId, idToken }
     }
 }
 

@@ -29,8 +29,7 @@ const user = gql`
 
     extend type Mutation {
         login ( 
-            msalToken: String!,
-            accessToken: String!
+            msalToken: String!
         ): AuthPayload
     }
 `;

@@ -15,17 +15,17 @@ const user = {
         },
         async me(parent, args, context, info) {
             return await { 
-                token: context.authScope.accessToken,
+                token: context.authScope.idToken,
                 user: User.findByPk(context.authScope.userId),
             }
         }
     },
     Mutation: {
         // Authenticate User
-        async login(_, { msalToken, accessToken }) {
+        async login(_, { msalToken }) {
             const login_user = msalToken ? jwtDecode(msalToken) : null;
             const email = login_user.preferred_username;
-            const user = await User.find({ where: { email } });    
+            const user = await User.find({ where: { email } });   
             
             if (!user) {
                 console.info(`No such user found, creating user with email: ${email}`);
@@ -42,7 +42,7 @@ const user = {
             }
 
             return await {
-                token: jwt.sign({ userId: user.id, accessToken: accessToken }, process.env.JWT_SECRET),
+                token: jwt.sign({ userId: user.id, idToken: msalToken }, process.env.JWT_SECRET),
                 user: user.id
             };
         }
