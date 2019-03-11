@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         email: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        oid: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     }, {
         tableName: 'users'

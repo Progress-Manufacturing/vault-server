@@ -4,6 +4,7 @@ const user = gql`
         id: Int!
         name: String!
         email: String!
+        oid: String!
         submissions: [Submission]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated

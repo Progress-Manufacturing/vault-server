@@ -1,4 +1,5 @@
 const { Submission, User } = require('../../models');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const submission = {
@@ -23,20 +24,25 @@ const submission = {
                 proposedSolution,
                 resources,
                 resourceExplanation,
-                solutionMeasurement
+                solutionMeasurement,
+                supervisor
             }, { authScope }) {
             
             if (!authScope) {
                 throw new Error('You must log in to continue!')
             }
-            
+
+
+            console.info(supervisor)
+
             const submission = await Submission.create({
-                userId: authScope,
+                userId: authScope.userId,
                 description,                
                 improvementExplanation,
                 proposedSolution,
                 resourceExplanation,
-                solutionMeasurement
+                solutionMeasurement,
+                supervisorId: supervisor
             });
             // Assign necessary information to submission
             await Promise.all([                

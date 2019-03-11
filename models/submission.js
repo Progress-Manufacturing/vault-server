@@ -41,6 +41,10 @@ module.exports = (sequelize, DataTypes) => {
         leadId: {
             type: DataTypes.INTEGER.UNSIGNED
         },
+        supervisorId: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         rewardId: {
             type: DataTypes.INTEGER.UNSIGNED
         },

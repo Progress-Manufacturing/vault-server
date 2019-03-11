@@ -31,7 +31,8 @@ const user = {
                 console.info(`No such user found, creating user with email: ${email}`);
                 await User.create({
                     name: login_user.name,
-                    email: email
+                    email: email,
+                    oid: login_user.oid
                 }).then(() => {
                     return user;
                 }).catch((err) => {

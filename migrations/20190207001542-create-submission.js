@@ -42,6 +42,10 @@ module.exports = {
             leadId: {
                 type: Sequelize.INTEGER.UNSIGNED
             },
+            supervisorId: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
             rewardId: {
                 type: Sequelize.INTEGER.UNSIGNED
             },

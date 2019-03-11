@@ -17,6 +17,7 @@ const submission = gql`
         progress: Progress
         approval: Approval
         lead: User
+        supervisor: String!
         reward: Reward
         comments: [Comment!]
         createdAt: DateTime! # will be generated
@@ -38,7 +39,8 @@ const submission = gql`
             proposedSolution: String,
             resources: [Int!]!,
             resourceExplanation: String!,
-            solutionMeasurement: String!
+            solutionMeasurement: String!,
+            supervisor: String!
         ) : Submission
         updateSubmission (
             id: Int!,
