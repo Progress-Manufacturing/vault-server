@@ -25,36 +25,23 @@ const user = {
         async login(_, { msalToken }) {
             const login_user = msalToken ? jwtDecode(msalToken) : null;
             const email = login_user.preferred_username;
+            let user = await User.find({ where: { email } })
             
-            User.create({
-                name: login_user.name,
-                email: email,
-                oid: login_user.oid
-            })
-
-            const user = await User.find({ where: { email } });  
-
-                
-            // if (!user) {
-            //     console.info(`No such user found, creating user with email: ${email}`);
-            //     await User.create({
-            //         name: login_user.name,
-            //         email: email,
-            //         oid: login_user.oid
-            //     }).then(async () => {
-            //         return await user;
-            //     }).catch((err) => {
-            //         return console.info(err);
-            //     })
-            // } else {
-            //     console.info(`User with email: ${email}, already exists.`);
-            // }
-
-
-            return {
+            if(!user) {
+                await User.create({ 
+                    name: login_user.name, 
+                    email: email, 
+                    oid: login_user.oid 
+                }).then(async () => {
+                    user = await User.find({ where: { email } })
+                })
+            }
+            
+            return await {
                 token: jwt.sign({ userId: user.id, idToken: msalToken }, process.env.JWT_SECRET),
                 user: user.id
-            };
+            }
+            
         }
     },
     User: {
