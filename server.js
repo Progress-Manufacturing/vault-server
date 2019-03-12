@@ -6,7 +6,7 @@ const express = require('express');
 const expressHelper = require('./utils/express');
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: process.env.CORS_ORIGIN,
     credentials: true // <-- REQUIRED backend setting
 };
   
