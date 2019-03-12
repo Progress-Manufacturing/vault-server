@@ -25,8 +25,7 @@ module.exports = new ApolloServer({
     playground: {
         endpoint: '/graphql',
         settings: {
-            'editor.theme' : 'dark',
-            'request.credentials': 'include'
+            'editor.theme' : 'dark'
         }
     }
 })
