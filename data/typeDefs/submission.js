@@ -27,6 +27,7 @@ const submission = gql`
     extend type Query {
         allSubmissions: [Submission]
         fetchSubmission(id: Int!): Submission
+        fetchSupervisorSubmissions: [Submission]
     }
 
     extend type Mutation {

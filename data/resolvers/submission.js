@@ -8,9 +8,13 @@ const submission = {
         async allSubmissions() {
             return await Submission.all()
         },
+        async fetchSupervisorSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({ where: { supervisorId: uniqueId.oid } })
+        },
         // Get a post by it ID
         async fetchSubmission(_, { id }) {
-            return await Submission.findById(id);
+            return await Submission.findById(id)
         }
     },
     Mutation: {
