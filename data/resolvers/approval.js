@@ -9,7 +9,7 @@ const approval = {
         },
         // Get an approval by it's ID
         async fetchApproval(_, { id }) {
-            return await Approval.findById(id);
+            return await Approval.findByPk(id);
         }
     },
     Mutation: {
@@ -23,7 +23,7 @@ const approval = {
         // Update a particular approval
         async updateApproval(_, { id, name, description, status  }) {
             // fetch the approval by it ID
-            const approval = await Approval.findById(id);
+            const approval = await Approval.findByPk(id);
             // Update the Approval
             await approval.update({
                 name,

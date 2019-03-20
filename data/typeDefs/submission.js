@@ -16,8 +16,9 @@ const submission = gql`
         improvementAreaType: ImprovementAreaType
         progress: Progress
         approval: Approval
-        lead: User
-        supervisor: String!
+        lead: String
+        supervisor: String
+        supapproval: SupApproval
         reward: Reward
         comments: [Comment!]
         createdAt: DateTime! # will be generated
@@ -45,11 +46,27 @@ const submission = gql`
         ) : Submission
         updateSubmission (
             id: Int!,
-            progress: Int!,
-            approval: Int!,
-            improvementAreaType: Int!,
-            lead: Int,
+            progress: Int,
+            approval: Int,
+            improvementAreaType: Int,
+            lead: String,
+            supapproval: Int,
             reward: Int,
+        ) : Submission
+        updateSupervisorApproval (
+            id: Int!,
+            progress: Int!,
+            supapproval: Int
+        ) : Submission
+        updateCommitteeApproval (
+            id: Int!,
+            progress: Int,
+            approval: Int,
+            lead: String
+        ) : Submission
+        updateLead (
+            id: Int!,
+            lead: String
         ) : Submission
     }
 `;

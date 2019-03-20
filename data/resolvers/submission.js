@@ -10,11 +10,11 @@ const submission = {
         },
         async fetchSupervisorSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
-            return await Submission.findAll({ where: { supervisorId: uniqueId.oid } })
+            return await Submission.findAll({ where: { supervisor: uniqueId.oid } })
         },
         // Get a post by it ID
         async fetchSubmission(_, { id }) {
-            return await Submission.findById(id)
+            return await Submission.findByPk(id)
         }
     },
     Mutation: {
@@ -36,9 +36,6 @@ const submission = {
                 throw new Error('You must log in to continue!')
             }
 
-
-            console.info(supervisor)
-
             const submission = await Submission.create({
                 userId: authScope.userId,
                 description,                
@@ -46,7 +43,7 @@ const submission = {
                 proposedSolution,
                 resourceExplanation,
                 solutionMeasurement,
-                supervisorId: supervisor
+                supervisor: supervisor
             });
             // Assign necessary information to submission
             await Promise.all([                
@@ -58,24 +55,56 @@ const submission = {
             return submission;
         },
         // Update a particular submission
-        async updateSubmission(_, { id, progress, approval, improvementAreaType, lead, reward }) {
+        async updateSubmission(_, { id, progress, approval, improvementAreaType, supapproval, lead, reward }) {
             // fetch the submission by it ID
-            const submission = await Submission.findById(id);
+            const submission = await Submission.findByPk(id);
             // Update the submission
             await submission.update({
                 progressId: progress,
                 approvalId: approval,
                 improvementAreaTypeId: improvementAreaType,
+                supApprovalId: supapproval,
                 leadId: lead,
                 rewardId: reward,
             });
             return submission;
+        },
+        async updateSupervisorApproval (_, { id, progress, supapproval }) {
+            // fetch the submission by it ID
+            const submission = await Submission.findByPk(id);
+            // Update the submission
+            await submission.update({
+                progressId: progress,
+                supApprovalId: supapproval
+            });
+            return submission
+        },
+        async updateCommitteeApproval (_, { id, progress, approval, lead }) {
+            // fetch the submission by it ID
+            const submission = await Submission.findByPk(id);
+            // Update the submission
+            await submission.update({
+                progressId: progress,
+                approvalId: approval,
+                leadId: lead
+            });
+            return submission
+        },
+        async updateLead (_, { id, lead }) {
+            // fetch the submission by it ID
+            const submission = await Submission.findByPk(id);
+            // Update the submission
+            await submission.update({
+                progressId: progress,
+                leadId: lead
+            });
+            return submission
         }
     },
     Submission: {
         // Fetch the user of a particular submission
         async user(submission) {
-            return await User.findById(submission.userId);
+            return await User.findByPk(submission.userId);
         },        
         // Fetch all areas affected that a submission belongs to
         async areas(submission) {
@@ -101,9 +130,9 @@ const submission = {
         async approval(submission) {
             return await submission.getApproval();
         },
-        // Fetch the lead of a particular submission
-        async lead(submission) {
-            return await User.findById(submission.leadId);
+        // Fetch the supervisor approval of a particular submission
+        async supapproval(submission) {
+            return await submission.getSupapproval();
         },
         // Fetch the reward of a particular submission
         async reward(submission) {

@@ -9,7 +9,7 @@ const progress = {
         },
         // Get an progress by it's ID
         async fetchProgress(_, { id }) {
-            return await Progress.findById(id);
+            return await Progress.findByPk(id);
         }
     },
     Mutation: {
@@ -24,7 +24,7 @@ const progress = {
         // Update a particular progress
         async updateProgress(_, { id, name, step, description }) {
             // fetch the progress by it ID
-            const progress = await Progress.findById(id);
+            const progress = await Progress.findByPk(id);
             // Update the progress
             await progress.update({
                 name,

@@ -7,10 +7,6 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             allowNull: false
         },
-        userId: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            allowNull: false
-        },
         description: {
             type: DataTypes.TEXT('long'),
             allowNull: false
@@ -38,12 +34,12 @@ module.exports = (sequelize, DataTypes) => {
         approvalId: {
             type: DataTypes.INTEGER.UNSIGNED
         },
-        leadId: {
-            type: DataTypes.INTEGER.UNSIGNED
+        lead: {
+            type: DataTypes.STRING
         },
-        supervisorId: {
+        supervisor: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: false
         },
         rewardId: {
             type: DataTypes.INTEGER.UNSIGNED
@@ -68,7 +64,8 @@ module.exports = (sequelize, DataTypes) => {
         Submission.belongsTo(models.Progress, {as: 'progress'});
         // A submission belongs one approval
         Submission.belongsTo(models.Approval, {as: 'approval'});
-        // TODO: Add connection to a lead for the submission -- POSSIBLY
+        // A submission belongs one supervisor approval
+        Submission.belongsTo(models.SupApproval, {as: 'supapproval'});
         // A submission belongs one reward
         Submission.belongsTo(models.Reward, {as: 'reward'});
 

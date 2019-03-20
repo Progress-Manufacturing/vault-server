@@ -16,7 +16,6 @@ function authScope(req) {
     }
 }
 
-
 const GRAPHQL_PLAYGROUND_CONFIG = {
     settings: {
       "editor.cursorShape": "line",

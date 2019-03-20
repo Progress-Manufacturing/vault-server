@@ -4,6 +4,7 @@ const user = require('./user');
 const submission = require('./submission');
 const comment = require('./comment');
 const approval = require('./approval');
+const supapproval = require('./supapproval');
 const area = require('./area');
 const improvement = require('./improvement');
 const improvementAreaType = require('./improvementareatype');
@@ -20,6 +21,7 @@ const schemaArray = [
     submission,
     comment,
     approval,
+    supapproval,
     area,
     improvement,
     improvementAreaType,

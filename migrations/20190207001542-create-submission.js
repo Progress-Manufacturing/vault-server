@@ -29,7 +29,7 @@ module.exports = {
                 type: Sequelize.TEXT('long'),
             },
             improvementAreaTypeId: {
-                type: Sequelize.INTEGER.UNSIGNED,
+                type: Sequelize.INTEGER.UNSIGNED
             },
             progressId: {
                 type: Sequelize.INTEGER.UNSIGNED,
@@ -39,12 +39,15 @@ module.exports = {
             approvalId: {
                 type: Sequelize.INTEGER.UNSIGNED
             },
-            leadId: {
-                type: Sequelize.INTEGER.UNSIGNED
+            lead: {
+                type: Sequelize.STRING
             },
-            supervisorId: {
+            supervisor: {
                 type: Sequelize.STRING,
                 allowNull: false,
+            },
+            supApprovalId: {
+                type: Sequelize.INTEGER.UNSIGNED
             },
             rewardId: {
                 type: Sequelize.INTEGER.UNSIGNED

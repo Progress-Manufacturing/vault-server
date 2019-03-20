@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const Progress = sequelize.define('Progress', {
+    const SupApproval = sequelize.define('SupApproval', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -12,15 +12,13 @@ module.exports = (sequelize, DataTypes) => {
             unique: true,
             allowNull: false
         },
-        step: {
-            type: DataTypes.INTEGER,
-            unique: true,
-            allowNull: false,
-            autoIncrement: false
-        },
         description: DataTypes.STRING
-    }, {
-        tableName: 'ci_progress'
+    },{
+        tableName: "ci_supervisor_approvals"
     });
-    return Progress;
+    SupApproval.associate = function(models) {
+        // A supervisor approval can have many submissions
+        SupApproval.hasMany(models.Submission);
+    };
+    return SupApproval;
 };
