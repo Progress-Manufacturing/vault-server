@@ -18,7 +18,7 @@ const submission = gql`
         approval: Approval
         lead: String
         supervisor: String
-        supapproval: SupApproval
+        supervisorapproval: SupervisorApproval
         reward: Reward
         comments: [Comment!]
         createdAt: DateTime! # will be generated
@@ -50,21 +50,21 @@ const submission = gql`
             approval: Int,
             improvementAreaType: Int,
             lead: String,
-            supapproval: Int,
+            supervisorapproval: Int,
             reward: Int,
         ) : Submission
-        updateSupervisorApproval (
+        updateSubmissionSupervisorApproval (
             id: Int!,
             progress: Int!,
-            supapproval: Int
+            supervisorapproval: Int,
         ) : Submission
-        updateCommitteeApproval (
+        updateSubmissionCommitteeApproval (
             id: Int!,
             progress: Int,
             approval: Int,
             lead: String
         ) : Submission
-        updateLead (
+        updateSubmissionLead (
             id: Int!,
             lead: String
         ) : Submission

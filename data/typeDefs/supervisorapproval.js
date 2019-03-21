@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
-const supapproval = gql`
-    type SupApproval {
+const supervisorapproval = gql`
+    type SupervisorApproval {
         id: Int!
         name: String!
         description: String!
@@ -9,22 +9,22 @@ const supapproval = gql`
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
-
+    
     extend type Query {
-        allSupApprovals: [SupApproval]
-        fetchSupApproval(id: Int!): SupApproval
+        allSupervisorApprovals: [SupervisorApproval]
+        fetchSupervisorApproval(id: Int!): SupervisorApproval
     }
 
     extend type Mutation {
-        addSupApproval (
+        addSupervisorApproval (
             name: String!,
             description: String
-        ) : SupApproval
-        updateSupApproval (
+        ) : SupervisorApproval
+        updateSupervisorApproval (
             id: Int!,
             name: String!,
             description: String
-        ) : SupApproval
+        ) : SupervisorApproval
     }
 `;
-module.exports = supapproval;
+module.exports = supervisorapproval;

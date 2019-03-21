@@ -46,7 +46,7 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            supApprovalId: {
+            supervisorApprovalId: {
                 type: Sequelize.INTEGER.UNSIGNED
             },
             rewardId: {

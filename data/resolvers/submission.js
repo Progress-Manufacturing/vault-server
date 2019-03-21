@@ -55,7 +55,7 @@ const submission = {
             return submission;
         },
         // Update a particular submission
-        async updateSubmission(_, { id, progress, approval, improvementAreaType, supapproval, lead, reward }) {
+        async updateSubmission(_, { id, progress, approval, improvementAreaType, lead, reward }) {
             // fetch the submission by it ID
             const submission = await Submission.findByPk(id);
             // Update the submission
@@ -63,42 +63,41 @@ const submission = {
                 progressId: progress,
                 approvalId: approval,
                 improvementAreaTypeId: improvementAreaType,
-                supApprovalId: supapproval,
-                leadId: lead,
+                lead: lead,
                 rewardId: reward,
             });
             return submission;
         },
-        async updateSupervisorApproval (_, { id, progress, supapproval }) {
+        async updateSubmissionSupervisorApproval (_, { id, progress, supervisorapproval }) {
             // fetch the submission by it ID
             const submission = await Submission.findByPk(id);
             // Update the submission
             await submission.update({
                 progressId: progress,
-                supApprovalId: supapproval
+                supervisorApprovalId: supervisorapproval
             });
-            return submission
+            return submission;
         },
-        async updateCommitteeApproval (_, { id, progress, approval, lead }) {
+        async updateSubmissionCommitteeApproval (_, { id, progress, approval, lead }) {
             // fetch the submission by it ID
             const submission = await Submission.findByPk(id);
             // Update the submission
             await submission.update({
                 progressId: progress,
                 approvalId: approval,
-                leadId: lead
+                lead: lead
             });
-            return submission
+            return submission;
         },
-        async updateLead (_, { id, lead }) {
+        async updateSubmissionLead (_, { id, lead }) {
             // fetch the submission by it ID
             const submission = await Submission.findByPk(id);
             // Update the submission
             await submission.update({
                 progressId: progress,
-                leadId: lead
+                lead: lead
             });
-            return submission
+            return submission;
         }
     },
     Submission: {
@@ -122,17 +121,17 @@ const submission = {
         async resources(submission) {
             return await submission.getResources();
         },
-        // Fetch the progress of a particulat submission
+        // Fetch the progress of a particular submission
         async progress(submission) {
             return await submission.getProgress();
+        },
+        // Fetch the supervisor approval of a particular submission
+        async supervisorapproval(submission) {
+            return await submission.getSupervisorApproval();
         },
         // Fetch the approval of a particular submission
         async approval(submission) {
             return await submission.getApproval();
-        },
-        // Fetch the supervisor approval of a particular submission
-        async supapproval(submission) {
-            return await submission.getSupapproval();
         },
         // Fetch the reward of a particular submission
         async reward(submission) {

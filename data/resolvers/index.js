@@ -1,7 +1,7 @@
 const user = require('./user');
 const submission = require('./submission');
 const approval = require('./approval');
-const supapproval = require('./supapproval');
+const supervisorapproval = require('./supervisorapproval');
 const area = require('./area');
 const comment = require('./comment');
 const improvement = require('./improvement');
@@ -18,12 +18,12 @@ const resolversArray = [
     user,
     submission,
     approval,
-    supapproval,
     area,
     comment,
     improvement,
     improvementAreaType,
     progress,
+    supervisorapproval,
     resource,
     reward,
     waste,

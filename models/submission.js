@@ -41,6 +41,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        supervisorApprovalId: {
+            type: DataTypes.INTEGER.UNSIGNED
+        },
         rewardId: {
             type: DataTypes.INTEGER.UNSIGNED
         },
@@ -65,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
         // A submission belongs one approval
         Submission.belongsTo(models.Approval, {as: 'approval'});
         // A submission belongs one supervisor approval
-        Submission.belongsTo(models.SupApproval, {as: 'supapproval'});
+        Submission.belongsTo(models.SupervisorApproval, {as: 'supervisorApproval'});
         // A submission belongs one reward
         Submission.belongsTo(models.Reward, {as: 'reward'});
 
