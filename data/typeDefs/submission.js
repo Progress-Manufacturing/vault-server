@@ -51,18 +51,20 @@ const submission = gql`
             improvementAreaType: Int,
             lead: String,
             supervisorapproval: Int,
-            reward: Int,
+            reward: Int
         ) : Submission
         updateSubmissionSupervisorApproval (
             id: Int!,
             progress: Int!,
             supervisorapproval: Int,
+            reward: Int
         ) : Submission
         updateSubmissionCommitteeApproval (
             id: Int!,
             progress: Int,
             approval: Int,
-            lead: String
+            lead: String,
+            reward: Int
         ) : Submission
         updateSubmissionLead (
             id: Int!,

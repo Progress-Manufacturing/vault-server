@@ -64,28 +64,30 @@ const submission = {
                 approvalId: approval,
                 improvementAreaTypeId: improvementAreaType,
                 lead: lead,
-                rewardId: reward,
+                rewardId: reward
             });
             return submission;
         },
-        async updateSubmissionSupervisorApproval (_, { id, progress, supervisorapproval }) {
+        async updateSubmissionSupervisorApproval (_, { id, progress, supervisorapproval, reward }) {
             // fetch the submission by it ID
             const submission = await Submission.findByPk(id);
             // Update the submission
             await submission.update({
                 progressId: progress,
-                supervisorApprovalId: supervisorapproval
+                supervisorApprovalId: supervisorapproval,
+                rewardId: reward
             });
             return submission;
         },
-        async updateSubmissionCommitteeApproval (_, { id, progress, approval, lead }) {
+        async updateSubmissionCommitteeApproval (_, { id, progress, approval, lead, reward }) {
             // fetch the submission by it ID
             const submission = await Submission.findByPk(id);
             // Update the submission
             await submission.update({
                 progressId: progress,
                 approvalId: approval,
-                lead: lead
+                lead: lead,
+                rewardId: reward
             });
             return submission;
         },

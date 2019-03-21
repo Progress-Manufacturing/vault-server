@@ -43,6 +43,7 @@
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",
     "passport-azure-ad": "^4.0.0",
+    "react": "^16.8.4",
     "request-promise-native": "^1.0.7",
     "sequelize": "^4.43.0",
     "sequelize-cli": "^5.4.0",
