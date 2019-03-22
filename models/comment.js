@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         },
-        commentType: {
+        submissionId: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false
         },
@@ -19,10 +19,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        status: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
+        commentType: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            allowNull: false
         }
     }, {
         tableName: 'ci_comments'

@@ -62,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
         // A submission can belong to many resources
         Submission.belongsToMany(models.Resource, { through: 'ci_submission_resource' });
         // A submission can belong to many comments
-        Submission.belongsToMany(models.Comment, { through: 'ci_submission_comment' });
+        Submission.belongsToMany(models.Comment, { through: 'ci_comments' });
         // A submission belongs one progress
         Submission.belongsTo(models.Progress, {as: 'progress'});
         // A submission belongs one approval

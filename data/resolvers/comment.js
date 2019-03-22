@@ -1,4 +1,4 @@
-const { Comment } = require('../../models');
+const { Comment, User, Submission } = require('../../models');
 require('dotenv').config();
 
 const comment = {
@@ -7,20 +7,38 @@ const comment = {
         async allComments(_, args, { user }) {
             return await Comment.all();
         },
-        // Get an approval by it's ID
+        // Get an comment by it's ID
         async fetchComment(_, { id }) {
             return await Comment.findById(id);
+        },
+        async fetchCommentsBySubmission(_, { submission, commentType }) {
+            return await Comment.findAll({ where: { submissionId: submission, commentType: commentType } })
         }
     },
     Mutation: {
         // Add new comment
-        async addComment(_, { content }) {
+        async addComment(_, { user, content, commentType, submission }, { authScope }) {
+            if (!authScope) {
+                throw new Error('You must log in to continue!')
+            }
+            
             return await Comment.create({
-                name,
-                description
+                userId: authScope.userId,
+                content,
+                commentType,
+                submissionId: submission
             });
         }
         // TODO: allow users to edit/delete their comments
+    },
+    Comment: {
+        // Fetch the user of a particular comment
+        async user(comment) {
+            return await User.findByPk(comment.userId);
+        },
+        async submission(comment) {
+            return await Submission.findByPk(comment.submissionId);
+        }
     }
 };
 

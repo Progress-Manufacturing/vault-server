@@ -12,21 +12,22 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false
       },
-      content: {
-          type: Sequelize.STRING,
+      submissionId: {
+        type: Sequelize.INTEGER.UNSIGNED
       },
-      status: {
-          type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false
+      content: {
+        type: Sequelize.STRING,
+      },
+      commentType: {
+        type: Sequelize.INTEGER.UNSIGNED
       },
       createdAt: {
-          type: Sequelize.DATE,
-          allowNull: false
+        type: Sequelize.DATE,
+        allowNull: false
       },
       updatedAt: {
-          type: Sequelize.DATE,
-          allowNull: false
+        type: Sequelize.DATE,
+        allowNull: false
       }
     });
   },
