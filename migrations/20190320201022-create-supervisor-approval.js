@@ -9,20 +9,20 @@ module.exports = {
         allowNull: false
       },
       name: {
-          type: Sequelize.STRING,
-          unique: true,
-          allowNull: false
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
       },
       description: {
-          type: Sequelize.STRING,
+        type: Sequelize.STRING,
       },
       createdAt: {
-          type: Sequelize.DATE,
-          allowNull: false
+        type: Sequelize.DATE,
+        allowNull: false
       },
       updatedAt: {
-          type: Sequelize.DATE,
-          allowNull: false
+        type: Sequelize.DATE,
+        allowNull: false
       }
     });
   },

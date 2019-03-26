@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     Resource.associate = function(models) {
         // A resource can have many submissions
         Resource.belongsToMany(models.Submission, { through: 'ci_submission_resource' });
+        Resource.belongsToMany(models.LeadInfo, { through: 'ci_submission_lead_resource' });
     };
     return Resource;
 };

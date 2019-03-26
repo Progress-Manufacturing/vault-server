@@ -3,6 +3,7 @@ const datetime = require('./datetime');
 const user = require('./user');
 const submission = require('./submission');
 const comment = require('./comment');
+const leadinfo = require('./leadinfo');
 const approval = require('./approval');
 const supervisorapproval = require('./supervisorapproval');
 const area = require('./area');
@@ -20,6 +21,7 @@ const schemaArray = [
     user,
     submission,
     comment,
+    leadinfo,
     approval,
     area,
     improvement,

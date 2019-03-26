@@ -4,6 +4,7 @@ const approval = require('./approval');
 const supervisorapproval = require('./supervisorapproval');
 const area = require('./area');
 const comment = require('./comment');
+const leadinfo = require('./leadinfo');
 const improvement = require('./improvement');
 const improvementAreaType = require('./improvementareatype');
 const progress = require('./progress');
@@ -20,6 +21,7 @@ const resolversArray = [
     approval,
     area,
     comment,
+    leadinfo,
     improvement,
     improvementAreaType,
     progress,
