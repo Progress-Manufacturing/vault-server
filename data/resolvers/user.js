@@ -1,4 +1,4 @@
-const { User } = require('../../models');
+const { User, Submission } = require('../../models');
 require('dotenv').config();
 const jwtDecode = require('jwt-decode');
 const jwt = require('jsonwebtoken');
@@ -52,7 +52,7 @@ const user = {
     },
     AuthPayload: {
         async user(id) {  
-            const user = User.findById(id.user);
+            const user = User.findByPk(id.user);
             return await user;
         }
     }

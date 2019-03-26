@@ -29,6 +29,9 @@ const submission = gql`
         allSubmissions: [Submission]
         fetchSubmission(id: Int!): Submission
         fetchSupervisorSubmissions: [Submission]
+        fetchInProgressSubmissions(userId: Int!): [Submission]
+        fetchActiveSubmissions(userId: Int!): [Submission]
+        fetchCompletedSubmissions(userId: Int!): [Submission]
     }
 
     extend type Mutation {
