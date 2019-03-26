@@ -12,6 +12,10 @@ const submission = {
             const uniqueId = jwt.decode(context.authScope.idToken)
             return await Submission.findAll({ where: { supervisor: uniqueId.oid } })
         },
+        async fetchLeadSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({ where: { lead: uniqueId.oid } })
+        },
         async fetchInProgressSubmissions(_, { userId }) {
             return await Submission.findAll({ where: { userId: userId, progressId: { $lt: 7 } } })
         },
