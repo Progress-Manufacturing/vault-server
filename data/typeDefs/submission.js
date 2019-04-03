@@ -26,10 +26,29 @@ const submission = gql`
     }
 
     extend type Query {
-        allSubmissions: [Submission]
-        fetchSubmission(id: Int!): Submission
+        allSubmissions: [Submission] # All Submission        
+        fetchSubmission(id: Int!): Submission # Submission by ID
+
+        # All Submissions
+        fetchNewAllSubmissions: [Submission]
+        fetchInProgressAllSubmissions: [Submission]
+        fetchActiveAllSubmissions: [Submission]
+        fetchCompletedAllSubmissions: [Submission]
+
+        # Supervisor Submissions
         fetchSupervisorSubmissions: [Submission]
+        fetchNewSupervisorSubmissions: [Submission]
+        fetchInProgressSupervisorSubmissions: [Submission]
+        fetchActiveSupervisorSubmissions: [Submission]
+        fetchCompletedSupervisorSubmissions: [Submission]
+
+        # Team Lead Submissions
         fetchLeadSubmissions: [Submission]
+        fetchNewLeadSubmissions: [Submission]
+        fetchActiveLeadSubmissions: [Submission]
+        fetchCompletedLeadSubmissions: [Submission]
+        
+        # User Submissions
         fetchInProgressSubmissions(userId: Int!): [Submission]
         fetchActiveSubmissions(userId: Int!): [Submission]
         fetchCompletedSubmissions(userId: Int!): [Submission]

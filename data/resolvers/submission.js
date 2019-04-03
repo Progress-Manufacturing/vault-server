@@ -4,28 +4,71 @@ require('dotenv').config();
 
 const submission = {
     Query: {
-        // Fetch all submissions
+        // All submissions
         async allSubmissions() {
             return await Submission.all()
         },
+        async fetchNewAllSubmissions() {
+            return await Submission.findAll({ where: { progressId: 1 } })
+        },
+        async fetchInProgressAllSubmissions() {
+            return await Submission.findAll({ where: { progressId: { $between: [2,7] } } })
+        },
+        async fetchActiveAllSubmissions() {
+            return await Submission.findAll({ where: { progressId: 8 } })
+        },
+        async fetchCompletedAllSubmissions() {
+            return await Submission.findAll({ where: { progressId: 9 } })
+        },
+        // Supervisor Submissions
         async fetchSupervisorSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
             return await Submission.findAll({ where: { supervisor: uniqueId.oid } })
         },
+        async fetchNewSupervisorSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({ where: { supervisor: uniqueId.oid, progressId: 1 } })
+        },
+        async fetchInProgressSupervisorSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({ where: { supervisor: uniqueId.oid, progressId: { $between: [2,7] } } })
+        },
+        async fetchActiveSupervisorSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({ where: { supervisor: uniqueId.oid, progressId: 8 } })
+        },
+        async fetchCompletedSupervisorSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({ where: { supervisor: uniqueId.oid, progressId: 9 } })
+        },
+        // Lead Submissions
         async fetchLeadSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
             return await Submission.findAll({ where: { lead: uniqueId.oid } })
         },
+        async fetchNewLeadSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({ where: { lead: uniqueId.oid, progressId: [6,7] } })
+        },
+        async fetchActiveLeadSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({ where: { lead: uniqueId.oid, progressId: 8 } })
+        },
+        async fetchCompletedLeadSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({ where: { lead: uniqueId.oid, progressId: 9 } })
+        },
+        //User Submissions
         async fetchInProgressSubmissions(_, { userId }) {
             return await Submission.findAll({ where: { userId: userId, progressId: { $lt: 7 } } })
-        },
+        },        
         async fetchActiveSubmissions(_, { userId }) {
             return await Submission.findAll({ where: { userId: userId, progressId: [7,8] } })
         },
         async fetchCompletedSubmissions(_, { userId }) {
             return await Submission.findAll({ where: {userId: userId, progressId: 9 } })
         },
-        // Get a submission by it ID
+        // Submission by ID
         async fetchSubmission(_, { id }) {
             return await Submission.findByPk(id)
         }
