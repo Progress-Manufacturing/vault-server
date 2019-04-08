@@ -31,6 +31,9 @@ module.exports = {
             improvementAreaTypeId: {
                 type: Sequelize.INTEGER.UNSIGNED
             },
+            department: {
+                type: Sequelize.STRING
+            },
             progressId: {
                 type: Sequelize.INTEGER.UNSIGNED,
                 allowNull: false,

@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
         improvementAreaTypeId: {
             type: DataTypes.INTEGER.UNSIGNED
         },
+        department: {
+            type: DataTypes.STRING
+        },
         progressId: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,

@@ -4,6 +4,10 @@ require('dotenv').config();
 
 const submission = {
     Query: {
+        // Submissions by Department
+        async fetchDepartmentSubmissions(_, { dept, startTime, endTime }) {           
+            return await Submission.findAll({ where: { department: dept, createdAt: { $between: [startTime,endTime] } } })
+        },
         // All submissions
         async allSubmissions() {
             return await Submission.all()
@@ -85,7 +89,8 @@ const submission = {
                 resources,
                 resourceExplanation,
                 solutionMeasurement,
-                supervisor
+                supervisor,
+                department
             }, { authScope }) {
             
             if (!authScope) {
@@ -99,7 +104,8 @@ const submission = {
                 proposedSolution,
                 resourceExplanation,
                 solutionMeasurement,
-                supervisor: supervisor
+                supervisor: supervisor,
+                department
             });
             // Assign necessary information to submission
             await Promise.all([                

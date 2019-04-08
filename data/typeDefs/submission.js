@@ -14,6 +14,7 @@ const submission = gql`
         resourceExplanation: String # explanation of why the resources are needed
         solutionMeasurement: String # how the solution will be measured
         improvementAreaType: ImprovementAreaType
+        department: String!
         progress: Progress
         approval: Approval
         lead: String
@@ -28,6 +29,9 @@ const submission = gql`
     extend type Query {
         allSubmissions: [Submission] # All Submission        
         fetchSubmission(id: Int!): Submission # Submission by ID
+
+        # Submission by Department
+        fetchDepartmentSubmissions(dept: String!, startTime: DateTime!, endTime: DateTime!): [Submission]
 
         # All Submissions
         fetchNewAllSubmissions: [Submission]
@@ -66,6 +70,7 @@ const submission = gql`
             resourceExplanation: String!,
             solutionMeasurement: String!,
             supervisor: String!
+            department: String!
         ) : Submission
         updateSubmission (
             id: Int!,
