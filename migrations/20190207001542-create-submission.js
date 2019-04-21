@@ -16,9 +16,6 @@ module.exports = {
                 type: Sequelize.TEXT('long'),
                 allowNull: false
             },
-            improvementExplanation: {
-                type: Sequelize.TEXT('long'),
-            },
             proposedSolution: {
                 type: Sequelize.TEXT('long'),
             },

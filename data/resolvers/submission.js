@@ -6,71 +6,156 @@ const submission = {
     Query: {
         // Submissions by Department
         async fetchDepartmentSubmissions(_, { dept, startTime, endTime }) {           
-            return await Submission.findAll({ where: { department: dept, createdAt: { $between: [startTime,endTime] } } })
+            return await Submission.findAll({ 
+                where: { department: dept, createdAt: { $between: [startTime,endTime] } },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         // All submissions
         async allSubmissions() {
             return await Submission.all()
         },
         async fetchNewAllSubmissions() {
-            return await Submission.findAll({ where: { progressId: 1 } })
+            return await Submission.findAll({ 
+                where: { progressId: 1 },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchInProgressAllSubmissions() {
-            return await Submission.findAll({ where: { progressId: { $between: [2,7] } } })
+            return await Submission.findAll({ 
+                where: { progressId: { $between: [2,7] } },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchActiveAllSubmissions() {
-            return await Submission.findAll({ where: { progressId: 8 } })
+            return await Submission.findAll({ 
+                where: { progressId: 8 },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchCompletedAllSubmissions() {
-            return await Submission.findAll({ where: { progressId: 9 } })
+            return await Submission.findAll({ 
+                where: { progressId: 9 },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         // Supervisor Submissions
         async fetchSupervisorSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
-            return await Submission.findAll({ where: { supervisor: uniqueId.oid } })
+            return await Submission.findAll({ 
+                where: { supervisor: uniqueId.oid },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchNewSupervisorSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
-            return await Submission.findAll({ where: { supervisor: uniqueId.oid, progressId: 1 } })
+            return await Submission.findAll({ 
+                where: { supervisor: uniqueId.oid, progressId: 1 },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchInProgressSupervisorSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
-            return await Submission.findAll({ where: { supervisor: uniqueId.oid, progressId: { $between: [2,7] } } })
+            return await Submission.findAll({ 
+                where: { supervisor: uniqueId.oid, progressId: { $between: [2,7] } },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchActiveSupervisorSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
-            return await Submission.findAll({ where: { supervisor: uniqueId.oid, progressId: 8 } })
+            return await Submission.findAll({ 
+                where: { supervisor: uniqueId.oid, progressId: 8 },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchCompletedSupervisorSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
-            return await Submission.findAll({ where: { supervisor: uniqueId.oid, progressId: 9 } })
+            return await Submission.findAll({ 
+                where: { supervisor: uniqueId.oid, progressId: 9 },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         // Lead Submissions
         async fetchLeadSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
-            return await Submission.findAll({ where: { lead: uniqueId.oid } })
+            return await Submission.findAll({ 
+                where: { lead: uniqueId.oid },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchNewLeadSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
-            return await Submission.findAll({ where: { lead: uniqueId.oid, progressId: [6,7] } })
+            return await Submission.findAll({ 
+                where: { lead: uniqueId.oid, progressId: [6,7] },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchActiveLeadSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
-            return await Submission.findAll({ where: { lead: uniqueId.oid, progressId: 8 } })
+            return await Submission.findAll({ 
+                where: { lead: uniqueId.oid, progressId: 8 },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchCompletedLeadSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
-            return await Submission.findAll({ where: { lead: uniqueId.oid, progressId: 9 } })
+            return await Submission.findAll({ 
+                where: { lead: uniqueId.oid, progressId: 9 },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         //User Submissions
         async fetchInProgressSubmissions(_, { userId }) {
-            return await Submission.findAll({ where: { userId: userId, progressId: { $lt: 7 } } })
+            return await Submission.findAll({ 
+                where: { userId: userId, progressId: { $lt: 7 } }, 
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },        
         async fetchActiveSubmissions(_, { userId }) {
-            return await Submission.findAll({ where: { userId: userId, progressId: [7,8] } })
+            return await Submission.findAll({
+                where: { userId: userId, progressId: [7,8] },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         async fetchCompletedSubmissions(_, { userId }) {
-            return await Submission.findAll({ where: {userId: userId, progressId: 9 } })
+            return await Submission.findAll({ 
+                where: {userId: userId, progressId: 9 },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
         },
         // Submission by ID
         async fetchSubmission(_, { id }) {
@@ -84,7 +169,6 @@ const submission = {
                 areas,
                 wastes,
                 improvements,
-                improvementExplanation,
                 proposedSolution,
                 resources,
                 resourceExplanation,
@@ -100,7 +184,6 @@ const submission = {
             const submission = await Submission.create({
                 userId: authScope.userId,
                 description,                
-                improvementExplanation,
                 proposedSolution,
                 resourceExplanation,
                 solutionMeasurement,

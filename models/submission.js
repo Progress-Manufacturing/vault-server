@@ -11,9 +11,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT('long'),
             allowNull: false
         },
-        improvementExplanation: {
-            type: DataTypes.TEXT('long'),
-        },
         proposedSolution: {
             type: DataTypes.TEXT('long'),
         },
