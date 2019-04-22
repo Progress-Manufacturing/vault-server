@@ -2,8 +2,10 @@ const { gql } = require('apollo-server-express');
 const user = gql`
     type User {
         id: Int!
+        admin: Int!
         name: String!
         email: String!
+        secondaryEmail: String
         oid: String!
         submissions: [Submission]
         createdAt: DateTime! # will be generated

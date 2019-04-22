@@ -9,6 +9,11 @@ module.exports = {
                 primaryKey: true,
                 allowNull: false
             },
+            admin: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                defaultValue: 0
+            },
             name: {
                 type: Sequelize.STRING,
                 allowNull: false
@@ -16,6 +21,9 @@ module.exports = {
             email: {
                 type: Sequelize.STRING,
                 allowNull: false
+            },
+            secondaryEmail: {
+                type: Sequelize.STRING
             },
             oid: {
                 type: Sequelize.STRING,

@@ -7,6 +7,11 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             allowNull: false
         },
+        admin: {
+            type: DataTypes.TINYINT,
+            allowNull: false,
+            defaultValue: 0
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false
@@ -14,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        secondaryEmail: {
+            type: DataTypes.STRING,
         },
         oid: {
             type: DataTypes.STRING,
