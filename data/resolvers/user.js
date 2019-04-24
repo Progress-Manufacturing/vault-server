@@ -1,4 +1,4 @@
-const { User, Submission } = require('../../models');
+const { User } = require('../../models');
 require('dotenv').config();
 const jwtDecode = require('jwt-decode');
 const jwt = require('jsonwebtoken');
@@ -12,6 +12,9 @@ const user = {
         // Get a user by ID
         async fetchUser(_, { id }) {
             return await User.findByPk(id);
+        },
+        async fetchAdminUsers() {
+            return await User.findAll({ where: { admin: 1 } });
         },
         async me(parent, args, context, info) {
             return await { 
