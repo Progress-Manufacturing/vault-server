@@ -1,4 +1,4 @@
-const { Submission, User } = require('../../models');
+const { Submission, Comment, User } = require('../../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -213,7 +213,7 @@ const submission = {
             });
             return submission;
         },
-        async updateSubmissionSupervisorApproval (_, { id, progress, supervisorapproval, reward }) {
+        async addSubmissionSupervisorApproval (_, { id, progress, supervisorapproval, content, commentType, submission, reward }, { authScope }) {
             // fetch the submission by it ID
             const submission = await Submission.findByPk(id);
             // Update the submission
@@ -222,6 +222,14 @@ const submission = {
                 supervisorApprovalId: supervisorapproval,
                 rewardId: reward
             });
+
+            await Comment.create({
+                userId: authScope.userId,
+                content,
+                commentType,
+                submissionId: submission
+            });
+
             return submission;
         },
         async updateSubmissionCommitteeApproval (_, { id, progress, approval, lead, reward }) {

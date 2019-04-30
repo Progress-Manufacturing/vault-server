@@ -79,10 +79,13 @@ const submission = gql`
             supervisorapproval: Int,
             reward: Int
         ) : Submission
-        updateSubmissionSupervisorApproval (
+        addSubmissionSupervisorApproval (
             id: Int!,
             progress: Int!,
-            supervisorapproval: Int,
+            supervisorapproval: Int!,
+            content: String!,
+            commentType: Int!,
+            submission: Int!,
             reward: Int
         ) : Submission
         updateSubmissionCommitteeApproval (
