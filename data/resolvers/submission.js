@@ -213,9 +213,22 @@ const submission = {
             });
             return submission;
         },
-        async addSubmissionSupervisorApproval (_, { id, progress, supervisorapproval, content, commentType, submission, reward }, { authScope }) {
+        async addSubmissionSupervisorApproval (_, { 
+                submissionId,
+                progress,
+                supervisorapproval,
+                content,
+                commentType,
+                reward 
+            }, { authScope }) {
+            
+            if (!authScope) {
+                throw new Error('You must log in to continue!')
+            }
+
             // fetch the submission by it ID
-            const submission = await Submission.findByPk(id);
+            console.info(submissionId)
+            const submission = await Submission.findByPk(submissionId);
             // Update the submission
             await submission.update({
                 progressId: progress,
@@ -227,7 +240,7 @@ const submission = {
                 userId: authScope.userId,
                 content,
                 commentType,
-                submissionId: submission
+                submissionId: submissionId
             });
 
             return submission;
