@@ -4,12 +4,12 @@ const improvementareatype = gql`
     type ImprovementAreaType {
         id: Int!
         name: String!
-        status: Boolean!
         description: String!
         submissions: [Submission]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
+    
     extend type Query {
         allImprovementAreaTypes: [ImprovementAreaType]
         fetchImprovementAreaType(id: Int!): ImprovementAreaType
@@ -24,8 +24,7 @@ const improvementareatype = gql`
             id: Int!
             name: String!,
             description: String
-        ) : ImprovementAreaType
-        # TODO: allow deletion of ImprovementAreaTypes?
+        ) : ImprovementAreaType        
     }
 `;
 module.exports = improvementareatype;

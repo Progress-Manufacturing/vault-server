@@ -29,7 +29,6 @@ const comment = {
                 submissionId: submission
             });
         }
-        // TODO: allow users to edit/delete their comments
     },
     Comment: {
         // Fetch the user of a particular comment

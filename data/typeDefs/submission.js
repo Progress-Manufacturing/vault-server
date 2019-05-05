@@ -87,11 +87,14 @@ const submission = gql`
             commentType: Int!,
             reward: Int
         ) : Submission
-        updateSubmissionCommitteeApproval (
-            id: Int!,
+        addSubmissionCommitteeApproval (
+            submissionId: Int!,
             progress: Int,
             approval: Int,
             lead: String,
+            content: String!,
+            commentType: Int!,
+            improvementAreaType: Int!,
             reward: Int
         ) : Submission
         updateSubmissionLead (
@@ -100,4 +103,5 @@ const submission = gql`
         ) : Submission
     }
 `;
+
 module.exports = submission;

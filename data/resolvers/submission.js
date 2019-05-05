@@ -227,7 +227,6 @@ const submission = {
             }
 
             // fetch the submission by it ID
-            console.info(submissionId)
             const submission = await Submission.findByPk(submissionId);
             // Update the submission
             await submission.update({
@@ -245,16 +244,39 @@ const submission = {
 
             return submission;
         },
-        async updateSubmissionCommitteeApproval (_, { id, progress, approval, lead, reward }) {
+        async addSubmissionCommitteeApproval (_, { 
+            submissionId, 
+            progress,
+            approval,
+            lead,
+            content,
+            commentType,
+            improvementAreaType,
+            reward 
+        }, { authScope }) {
+
+            if (!authScope) {
+                throw new Error('You must log in to continue!')
+            }
+
             // fetch the submission by it ID
-            const submission = await Submission.findByPk(id);
+            const submission = await Submission.findByPk(submissionId);
             // Update the submission
             await submission.update({
                 progressId: progress,
                 approvalId: approval,
                 lead: lead,
+                improvementAreaTypeId: improvementAreaType,
                 rewardId: reward
             });
+
+            await Comment.create({
+                userId: authScope.userId,
+                content,
+                commentType,
+                submissionId: submissionId
+            })
+           
             return submission;
         },
         async updateSubmissionLead (_, { id, lead }) {
@@ -304,6 +326,10 @@ const submission = {
         // Fetch the reward of a particular submission
         async reward(submission) {
             return await submission.getReward();
+        },
+        // Fetch the improvement area type
+        async improvementAreaType(submission) {
+            return await submission.getImprovementAreaType();
         }
     }
 };

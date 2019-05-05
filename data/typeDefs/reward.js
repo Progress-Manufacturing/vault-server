@@ -4,7 +4,6 @@ const reward = gql`
     type Reward {
         id: Int!
         name: String!
-        status: Boolean!
         description: String!
         submissions: [Submission]
         createdAt: DateTime! # will be generated

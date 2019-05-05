@@ -71,8 +71,8 @@ module.exports = (sequelize, DataTypes) => {
         Submission.belongsTo(models.SupervisorApproval, {as: 'supervisorApproval'});
         // A submission belongs one reward
         Submission.belongsTo(models.Reward, {as: 'reward'});
-
-        Submission.belongsTo(models.ImprovementAreaType, {as: 'improvement_area_type'});
+        // A submission belongs to one improvement area type
+        Submission.belongsTo(models.ImprovementAreaType, {as: 'improvementAreaType'});
     };
     return Submission;
 };
