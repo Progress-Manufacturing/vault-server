@@ -52,6 +52,10 @@ module.exports = {
             rewardId: {
                 type: Sequelize.INTEGER.UNSIGNED
             },
+            rewarded: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: 0
+            },
             createdAt: {
                 type: Sequelize.DATE,
                 allowNull: false

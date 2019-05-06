@@ -20,6 +20,7 @@ const submission = gql`
         supervisor: String
         supervisorapproval: SupervisorApproval
         reward: Reward
+        rewarded: Int!
         comments: [Comment!]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
@@ -78,6 +79,7 @@ const submission = gql`
             lead: String,
             supervisorapproval: Int,
             reward: Int
+            rewarded: Int
         ) : Submission
         addSubmissionSupervisorApproval (
             submissionId: Int!,

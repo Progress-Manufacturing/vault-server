@@ -200,7 +200,7 @@ const submission = {
             return submission;
         },
         // Update a particular submission
-        async updateSubmission(_, { id, progress, approval, improvementAreaType, lead, reward }) {
+        async updateSubmission(_, { id, progress, approval, improvementAreaType, lead, reward, rewarded }) {
             // fetch the submission by it ID
             const submission = await Submission.findByPk(id);
             // Update the submission
@@ -209,7 +209,8 @@ const submission = {
                 approvalId: approval,
                 improvementAreaTypeId: improvementAreaType,
                 lead: lead,
-                rewardId: reward
+                rewardId: reward,
+                rewarded: rewarded
             });
             return submission;
         },

@@ -47,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
         rewardId: {
             type: DataTypes.INTEGER.UNSIGNED
         },
+        rewarded: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: 0
+        }
     }, {
         tableName: 'ci_submissions'
     });
