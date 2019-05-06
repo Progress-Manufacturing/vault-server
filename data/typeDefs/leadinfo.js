@@ -9,7 +9,6 @@ const leadinfo = gql`
         potentialEndDate: String
         actualStartDate: String
         actualEndDate: String
-        resources: [Resource]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
@@ -27,7 +26,8 @@ const leadinfo = gql`
             potentialEndDate: String
             actualStartDate: String
             actualEndDate: String
-            resources: [Int]
+            commentType: Int!
+            content: String
         ) : LeadInfo
         updateLeadInfo (
             id: Int!

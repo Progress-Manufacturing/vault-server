@@ -1,4 +1,4 @@
-const { LeadInfo, User, Submission } = require('../../models');
+const { LeadInfo, User, Submission, Comment } = require('../../models');
 require('dotenv').config();
 
 const leadinfo = {
@@ -24,14 +24,22 @@ const leadinfo = {
             potentialEndDate,
             actualStartDate,
             actualEndDate,
-            resources
+            commentType,
+            content
         }, { authScope }) {
 
             if (!authScope) {
                 throw new Error('You must log in to continue!')
             }
 
-            const leadinfo = await LeadInfo.create({
+            await Comment.create({
+                userId: authScope.userId,
+                content,
+                commentType,
+                submissionId: submission
+            });
+
+            return await LeadInfo.create({
                 userId: authScope.userId,
                 submissionId: submission,
                 potentialStartDate,
@@ -39,13 +47,6 @@ const leadinfo = {
                 actualStartDate,
                 actualEndDate
             });
-
-            // Assign necessary information to submission
-            await Promise.all([                
-                leadinfo.setResources(resources)
-            ]);
-
-            return leadinfo;
         },
         // Update a particular lead information
         async updateLeadInfo(_, { id, actualStartDate, actualEndDate }) {
@@ -63,10 +64,6 @@ const leadinfo = {
         // Fetch the user of particular lead information
         async user(leadinfo) {
             return await User.findByPk(leadinfo.userId);
-        },        
-        // Fetch all resources that lead information belongs to
-        async resources(leadinfo) {
-            return await leadinfo.getResources();
         },
         // Fetch all submission of lead information
         async submission(leadinfo) {
