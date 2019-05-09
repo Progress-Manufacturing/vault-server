@@ -38,6 +38,7 @@ const submission = gql`
         fetchInProgressAllSubmissions: [Submission]
         fetchActiveAllSubmissions: [Submission]
         fetchCompletedAllSubmissions: [Submission]
+        fetchArchivedAllSubmissions: [Submission]
 
         # Supervisor Submissions
         fetchSupervisorSubmissions: [Submission]
@@ -45,17 +46,20 @@ const submission = gql`
         fetchInProgressSupervisorSubmissions: [Submission]
         fetchActiveSupervisorSubmissions: [Submission]
         fetchCompletedSupervisorSubmissions: [Submission]
+        fetchArchivedSupervisorSubmissions: [Submission]
 
         # Team Lead Submissions
         fetchLeadSubmissions: [Submission]
         fetchNewLeadSubmissions: [Submission]
         fetchActiveLeadSubmissions: [Submission]
         fetchCompletedLeadSubmissions: [Submission]
+        fetchArchivedLeadSubmissions: [Submission]
         
         # User Submissions
         fetchInProgressSubmissions(userId: Int!): [Submission]
         fetchActiveSubmissions(userId: Int!): [Submission]
         fetchCompletedSubmissions(userId: Int!): [Submission]
+        fetchArchivedSubmissions(userId: Int!): [Submission]
     }
 
     extend type Mutation {

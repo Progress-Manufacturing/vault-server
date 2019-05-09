@@ -2,6 +2,19 @@ const { Submission, Comment, User } = require('../../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+subtractSixMonths = () => {
+    const today = Date.now();
+    const sixMonthsAgo = today - (15770000000);
+    const finalDate = new Date(sixMonthsAgo)
+    
+    return finalDate;
+}
+
+function addMonths(date, months) {
+    date.setMonth(date.getMonth() + months);
+    return date;
+  }
+
 const submission = {
     Query: {
         // Submissions by Department
@@ -42,8 +55,16 @@ const submission = {
             })
         },
         async fetchCompletedAllSubmissions() {
-            return await Submission.findAll({ 
-                where: { progressId: 9 },
+            return await Submission.findAll({                 
+                where: { progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
+        },
+        async fetchArchivedAllSubmissions() {
+            return await Submission.findAll({                 
+                where: { progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -89,7 +110,16 @@ const submission = {
         async fetchCompletedSupervisorSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
             return await Submission.findAll({ 
-                where: { supervisor: uniqueId.oid, progressId: 9 },
+                where: { supervisor: uniqueId.oid, progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
+        },
+        async fetchArchivedSupervisorSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({                 
+                where: { supervisor: uniqueId.oid, progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -126,7 +156,16 @@ const submission = {
         async fetchCompletedLeadSubmissions(parent, args, context, info) {
             const uniqueId = jwt.decode(context.authScope.idToken)
             return await Submission.findAll({ 
-                where: { lead: uniqueId.oid, progressId: 9 },
+                where: { lead: uniqueId.oid, progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
+        },
+        async fetchArchivedLeadSubmissions(parent, args, context, info) {
+            const uniqueId = jwt.decode(context.authScope.idToken)
+            return await Submission.findAll({ 
+                where: { lead: uniqueId.oid, progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -151,7 +190,15 @@ const submission = {
         },
         async fetchCompletedSubmissions(_, { userId }) {
             return await Submission.findAll({ 
-                where: {userId: userId, progressId: 9 },
+                where: {userId: userId, progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
+        },
+        async fetchArchivedSubmissions(_, { userId }) {
+            return await Submission.findAll({ 
+                where: {userId: userId, progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
