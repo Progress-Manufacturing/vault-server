@@ -1,6 +1,5 @@
 const { User } = require('../../models');
 require('dotenv').config();
-const jwtDecode = require('jwt-decode');
 const jwt = require('jsonwebtoken');
 
 const user = {
@@ -26,9 +25,10 @@ const user = {
     Mutation: {
         // Authenticate User
         async login(_, { msalToken }) {
-            const login_user = msalToken ? jwtDecode(msalToken) : null;
+            const login_user = msalToken ? jwt.decode(msalToken) : null;
             const email = login_user.preferred_username;
-            let user = await User.find({ where: { email } })
+            let user = await User.find({ where: { email } });
+            console.info('user: ', user);
             
             if(!user) {
                 await User.create({ 
@@ -40,10 +40,10 @@ const user = {
                 })
             }
             
-            return await {
-                token: jwt.sign({ userId: user.id, idToken: msalToken }, process.env.JWT_SECRET),
-                user: user.id
-            }
+            // return await {
+            //     token: jwt.sign({ userId: user.id, idToken: msalToken }, process.env.JWT_SECRET),
+            //     user: user.id
+            // }
             
         }
     },
