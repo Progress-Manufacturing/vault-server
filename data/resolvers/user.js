@@ -27,8 +27,7 @@ const user = {
         async login(_, { msalToken }) {
             const login_user = msalToken ? jwt.decode(msalToken) : null;
             const email = login_user.preferred_username;
-            let user = await User.find({ where: { email } });
-            console.info('user: ', user);
+            let user = await User.findOne({ where: { email } });
             
             if(!user) {
                 await User.create({ 
@@ -40,10 +39,10 @@ const user = {
                 })
             }
             
-            // return await {
-            //     token: jwt.sign({ userId: user.id, idToken: msalToken }, process.env.JWT_SECRET),
-            //     user: user.id
-            // }
+            return await {
+                token: jwt.sign({ userId: user.id, idToken: msalToken }, process.env.JWT_SECRET),
+                user: user.id
+            }
             
         }
     },
