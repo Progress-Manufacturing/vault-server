@@ -1,5 +1,5 @@
-const { User } = require('../../models');
 require('dotenv').config();
+const { User } = require('../../models');
 const jwt = require('jsonwebtoken');
 
 const user = {
@@ -16,10 +16,8 @@ const user = {
             return await User.findAll({ where: { admin: 1 } });
         },
         async me(parent, args, context, info) {
-            return await { 
-                token: context.authScope.idToken,
-                user: User.findByPk(context.authScope.userId),
-            }
+            const user = await User.findOne({ where: { oid: context.authScope.oid } });
+            return { user: user };
         }
     },
     Mutation: {
@@ -27,23 +25,20 @@ const user = {
         async login(_, { msalToken }) {
             const login_user = msalToken ? jwt.decode(msalToken) : null;
             const email = login_user.preferred_username;
+            const isProgress = email.split('@')[1];
             let user = await User.findOne({ where: { email } });
-            
-            if(!user) {
+
+            if(!user && isProgress === 'progressmfg.com') {
                 await User.create({ 
                     name: login_user.name, 
                     email: email, 
                     oid: login_user.oid 
                 }).then(async () => {
-                    user = await User.find({ where: { email } })
-                })
+                    user = await User.findOne({ where: { email } });
+                });
             }
             
-            return await {
-                token: jwt.sign({ userId: user.id, idToken: msalToken }, process.env.JWT_SECRET),
-                user: user.id
-            }
-            
+            return await { user: user.id } 
         }
     },
     User: {
@@ -53,7 +48,7 @@ const user = {
         }
     },
     AuthPayload: {
-        async user(id) {  
+        async user(id) {
             const user = User.findByPk(id.user);
             return await user;
         }

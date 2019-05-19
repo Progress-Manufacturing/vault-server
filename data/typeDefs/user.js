@@ -13,12 +13,10 @@ const user = gql`
     }
 
     type AuthPayload {
-        token: String!
         user: User!
     }
 
     type LoggedInUserPayload {
-        token: String!
         user: User!
     }
 
