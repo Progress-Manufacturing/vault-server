@@ -272,8 +272,11 @@ const submission = {
                 rewardId: reward
             });
 
+            const currentUser = await User.findOne({ where: { oid: authScope.oid } });
+            const userId = currentUser.id;
+
             await Comment.create({
-                userId: authScope.userId,
+                userId: userId,
                 content,
                 commentType,
                 submissionId: submissionId
