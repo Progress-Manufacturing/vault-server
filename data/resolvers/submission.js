@@ -72,100 +72,89 @@ const submission = {
         },
         // Supervisor Submissions
         async fetchSupervisorSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
             return await Submission.findAll({ 
-                where: { supervisor: uniqueId.oid },
+                where: { supervisor: context.authScope.oid },
                 order: [
                     ['createdAt', 'DESC']
                 ]
             })
         },
-        async fetchNewSupervisorSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
+        async fetchNewSupervisorSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { supervisor: uniqueId.oid, progressId: 1 },
+                where: { supervisor: context.authScope.oid, progressId: 1 },
                 order: [
                     ['createdAt', 'DESC']
                 ]
             })
         },
-        async fetchInProgressSupervisorSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
+        async fetchInProgressSupervisorSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { supervisor: uniqueId.oid, progressId: { $between: [2,7] } },
+                where: { supervisor: context.authScope.oid, progressId: { $between: [2,7] } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
             })
         },
-        async fetchActiveSupervisorSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
+        async fetchActiveSupervisorSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { supervisor: uniqueId.oid, progressId: 8 },
+                where: { supervisor: context.authScope.oid, progressId: 8 },
                 order: [
                     ['createdAt', 'DESC']
                 ]
             })
         },
-        async fetchCompletedSupervisorSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
+        async fetchCompletedSupervisorSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { supervisor: uniqueId.oid, progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
+                where: { supervisor: context.authScope.oid, progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
             })
         },
-        async fetchArchivedSupervisorSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
+        async fetchArchivedSupervisorSubmissions(parent, args, context, info) {            
             return await Submission.findAll({                 
-                where: { supervisor: uniqueId.oid, progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
+                where: { supervisor: context.authScope.oid, progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
             })
         },
         // Lead Submissions
-        async fetchLeadSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
+        async fetchLeadSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { lead: uniqueId.oid },
+                where: { lead: context.authScope.oid },
                 order: [
                     ['createdAt', 'DESC']
                 ]
             })
         },
-        async fetchNewLeadSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
+        async fetchNewLeadSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { lead: uniqueId.oid, progressId: [6,7] },
+                where: { lead: context.authScope.oid, progressId: [6,7] },
                 order: [
                     ['createdAt', 'DESC']
                 ]
             })
         },
-        async fetchActiveLeadSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
+        async fetchActiveLeadSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { lead: uniqueId.oid, progressId: 8 },
+                where: { lead: context.authScope.oid, progressId: 8 },
                 order: [
                     ['createdAt', 'DESC']
                 ]
             })
         },
-        async fetchCompletedLeadSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
+        async fetchCompletedLeadSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { lead: uniqueId.oid, progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
+                where: { lead: context.authScope.oid, progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
             })
         },
-        async fetchArchivedLeadSubmissions(parent, args, context, info) {
-            const uniqueId = jwt.decode(context.authScope.idToken)
+        async fetchArchivedLeadSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { lead: uniqueId.oid, progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
+                where: { lead: context.authScope.oid, progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]

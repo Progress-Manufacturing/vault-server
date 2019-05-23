@@ -18,12 +18,16 @@ const comment = {
     Mutation: {
         // Add new comment
         async addComment(_, { user, content, commentType, submission }, { authScope }) {
+            console.info('scope: ', authScope);
             if (!authScope) {
                 throw new Error('You must log in to continue!')
             }
-            
+
+            const currentUser = await User.findOne({ where: { oid: authScope.oid } });
+            const userId = currentUser.id;
+
             return await Comment.create({
-                userId: authScope.userId,
+                userId: userId,
                 content,
                 commentType,
                 submissionId: submission

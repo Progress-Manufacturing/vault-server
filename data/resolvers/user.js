@@ -12,6 +12,11 @@ const user = {
         async fetchUser(_, { id }) {
             return await User.findByPk(id);
         },
+        async fetchUserByOid(_,{ id }) {
+            console.log(id);
+            const user = await User.findOne({ where: { oid: id } });
+            return user;
+        },
         async fetchAdminUsers() {
             return await User.findAll({ where: { admin: 1 } });
         },

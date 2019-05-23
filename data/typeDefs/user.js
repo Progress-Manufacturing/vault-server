@@ -25,6 +25,9 @@ const user = gql`
         fetchUser(
             id: Int!
         ): User
+        fetchUserByOid(
+            id: String!
+        ): User
         fetchAdminUsers: [User]
         me: LoggedInUserPayload
     }
