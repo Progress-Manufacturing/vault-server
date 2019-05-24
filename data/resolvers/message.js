@@ -18,23 +18,23 @@ const message = {
                 name,
                 message
             }) {
-            const message = await Submission.create({
+            const userMessage = await Submission.create({
                 name,                
                 message
             });
             
-            return message;
+            return userMessage;
         },
         // Update a particular message
         async updateMessage(_, { id, name, message }) {
             // fetch the message by it ID
-            const message = await Message.findById(id);
+            const userMessage = await Message.findById(id);
             // Update the message
-            await message.update({
+            await userMessage.update({
                 name,
                 message
             });
-            return message;
+            return userMessage;
         }
     }
 };

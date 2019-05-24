@@ -217,8 +217,11 @@ const submission = {
                 throw new Error('You must log in to continue!')
             }
 
+            const currentUser = await User.findOne({ where: { oid: authScope.oid } });
+            const userId = currentUser.id;
+
             const submission = await Submission.create({
-                userId: authScope.userId,
+                userId: userId,
                 description,                
                 proposedSolution,
                 resourceExplanation,
