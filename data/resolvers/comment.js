@@ -18,7 +18,7 @@ const comment = {
     Mutation: {
         // Add new comment
         async addComment(_, { user, content, commentType, submission }, { authScope }) {
-            console.info('scope: ', authScope);
+            
             if (!authScope) {
                 throw new Error('You must log in to continue!')
             }

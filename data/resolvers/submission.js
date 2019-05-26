@@ -288,6 +288,24 @@ const submission = {
 
             return submission;
         },
+        async addSubmissionImprovementAreaType (_, {
+            submissionId,
+            improvementAreaType
+        }, { authScope }) {
+
+            if (!authScope) {
+                throw new Error('You must log in to continue!');
+            }
+
+            const submission = await Submission.findByPk(submissionId);
+
+            await submission.update({
+                improvementAreaTypeId: improvementAreaType
+            });
+
+            return submission;
+
+        },
         async addSubmissionCommitteeApproval (_, { 
             submissionId, 
             progress,
@@ -295,12 +313,11 @@ const submission = {
             lead,
             content,
             commentType,
-            improvementAreaType,
             reward 
         }, { authScope }) {
 
             if (!authScope) {
-                throw new Error('You must log in to continue!')
+                throw new Error('You must log in to continue!');
             }
 
             // fetch the submission by it ID
@@ -310,12 +327,14 @@ const submission = {
                 progressId: progress,
                 approvalId: approval,
                 lead: lead,
-                improvementAreaTypeId: improvementAreaType,
                 rewardId: reward
             });
 
+            const currentUser = await User.findOne({ where: { oid: authScope.oid } });
+            const userId = currentUser.id;
+
             await Comment.create({
-                userId: authScope.userId,
+                userId: userId,
                 content,
                 commentType,
                 submissionId: submissionId

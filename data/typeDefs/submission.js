@@ -93,6 +93,10 @@ const submission = gql`
             commentType: Int!,
             reward: Int
         ) : Submission
+        addSubmissionImprovementAreaType (
+            submissionId: Int!,
+            improvementAreaType: Int!
+        ) : Submission
         addSubmissionCommitteeApproval (
             submissionId: Int!,
             progress: Int,
@@ -100,7 +104,6 @@ const submission = gql`
             lead: String,
             content: String!,
             commentType: Int!,
-            improvementAreaType: Int!,
             reward: Int
         ) : Submission
         updateSubmissionLead (
