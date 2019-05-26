@@ -5,7 +5,7 @@ const resource = {
     Query: {
         // Fetch all resources
         async allResources(_, args, { user }) {
-            return await Resource.all();
+            return await Resource.findAll();
         },
         // Get an resource by it's ID
         async fetchResource(_, { id }) {

@@ -5,7 +5,7 @@ const progress = gql`
         id: Int!
         name: String!
         step: Int!
-        description: String!
+        description: String
         submissions: [Submission!]!
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated

@@ -1,5 +1,6 @@
 const { Submission, Comment, User } = require('../../models');
-const jwt = require('jsonwebtoken');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 require('dotenv').config();
 
 subtractSixMonths = () => {
@@ -20,7 +21,7 @@ const submission = {
         // Submissions by Department
         async fetchDepartmentSubmissions(_, { dept, startTime, endTime }) {           
             return await Submission.findAll({ 
-                where: { department: dept, createdAt: { $between: [startTime,endTime] } },
+                where: { department: dept, createdAt: { [Op.between]: [startTime,endTime] } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -28,7 +29,7 @@ const submission = {
         },
         // All submissions
         async allSubmissions() {
-            return await Submission.all()
+            return await Submission.findAll()
         },
         async fetchNewAllSubmissions() {
             return await Submission.findAll({ 
@@ -40,7 +41,7 @@ const submission = {
         },
         async fetchInProgressAllSubmissions() {
             return await Submission.findAll({ 
-                where: { progressId: { $between: [2,7] } },
+                where: { progressId: { [Op.between]: [2,7] } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -56,7 +57,7 @@ const submission = {
         },
         async fetchCompletedAllSubmissions() {
             return await Submission.findAll({                 
-                where: { progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
+                where: { progressId: 9, updatedAt: { [Op.gt]: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -64,7 +65,7 @@ const submission = {
         },
         async fetchArchivedAllSubmissions() {
             return await Submission.findAll({                 
-                where: { progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
+                where: { progressId: 9, updatedAt: { [Op.lt]: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -89,7 +90,7 @@ const submission = {
         },
         async fetchInProgressSupervisorSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { supervisor: context.authScope.oid, progressId: { $between: [2,7] } },
+                where: { supervisor: context.authScope.oid, progressId: { [Op.between]: [2,7] } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -105,7 +106,7 @@ const submission = {
         },
         async fetchCompletedSupervisorSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { supervisor: context.authScope.oid, progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
+                where: { supervisor: context.authScope.oid, progressId: 9, updatedAt: { [Op.gt]: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -113,7 +114,7 @@ const submission = {
         },
         async fetchArchivedSupervisorSubmissions(parent, args, context, info) {            
             return await Submission.findAll({                 
-                where: { supervisor: context.authScope.oid, progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
+                where: { supervisor: context.authScope.oid, progressId: 9, updatedAt: { [Op.lt]: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -146,7 +147,7 @@ const submission = {
         },
         async fetchCompletedLeadSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { lead: context.authScope.oid, progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
+                where: { lead: context.authScope.oid, progressId: 9, updatedAt: { [Op.gt]: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -154,7 +155,7 @@ const submission = {
         },
         async fetchArchivedLeadSubmissions(parent, args, context, info) {            
             return await Submission.findAll({ 
-                where: { lead: context.authScope.oid, progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
+                where: { lead: context.authScope.oid, progressId: 9, updatedAt: { [Op.lt]: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -163,7 +164,7 @@ const submission = {
         //User Submissions
         async fetchInProgressSubmissions(_, { userId }) {
             return await Submission.findAll({ 
-                where: { userId: userId, progressId: { $lt: 7 } }, 
+                where: { userId: userId, progressId: { [Op.lt]: 7 } }, 
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -179,7 +180,7 @@ const submission = {
         },
         async fetchCompletedSubmissions(_, { userId }) {
             return await Submission.findAll({ 
-                where: {userId: userId, progressId: 9, updatedAt: { $gt: subtractSixMonths() } },
+                where: {userId: userId, progressId: 9, updatedAt: { [Op.gt]: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]
@@ -187,7 +188,7 @@ const submission = {
         },
         async fetchArchivedSubmissions(_, { userId }) {
             return await Submission.findAll({ 
-                where: {userId: userId, progressId: 9, updatedAt: { $lt: subtractSixMonths() } },
+                where: {userId: userId, progressId: 9, updatedAt: { [Op.lt]: subtractSixMonths() } },
                 order: [
                     ['createdAt', 'DESC']
                 ]

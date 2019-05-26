@@ -4,8 +4,8 @@ require('dotenv').config();
 const improvementareatype = {
     Query: {
         // Fetch all improvement area types
-        async allImprovementAreaTypes(_, args, { user }) {
-            return await ImprovementAreaType.all();
+        async allImprovementAreaTypes() {
+            return await ImprovementAreaType.findAll();
         },
         // Get an improvement area type by it's ID
         async fetchImprovementAreaType(_, { id }) {

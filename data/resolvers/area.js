@@ -4,8 +4,8 @@ require('dotenv').config();
 const area = {
     Query: {
         // Fetch all areas 
-        async allAreas(_, args, { user }) {
-            return await Area.all();
+        async allAreas() {
+            return await Area.findAll();
         },
         // Get an area by it's ID
         async fetchArea(_, { id }) {

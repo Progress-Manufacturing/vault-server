@@ -4,8 +4,8 @@ require('dotenv').config();
 const comment = {
     Query: {
         // Fetch all Comments
-        async allComments(_, args, { user }) {
-            return await Comment.all();
+        async allComments() {
+            return await Comment.findAll();
         },
         // Get an comment by it's ID
         async fetchComment(_, { id }) {

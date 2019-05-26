@@ -4,8 +4,8 @@ require('dotenv').config();
 const event = {
     Query: {
         // Fetch all Events
-        async allEvents(_, args, { user }) {
-            return await Event.all();
+        async allEvents() {
+            return await Event.findAll();
         },
         // Get an event by it's ID
         async fetchEvent(_, { id }) {

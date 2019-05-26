@@ -4,8 +4,8 @@ require('dotenv').config();
 const improvement = {
     Query: {
         // Fetch all improvements
-        async allImprovements(_, args, { user }) {
-            return await Improvement.all();
+        async allImprovements() {
+            return await Improvement.findAll();
         },
         // Get an improvement by it's ID
         async fetchImprovement(_, { id }) {

@@ -4,8 +4,8 @@ require('dotenv').config();
 const supervisorapproval = {
     Query: {
         // Fetch all supervisor approvals
-        async allSupervisorApprovals(_, args, { user }) {
-            return await SupervisorApproval.all();
+        async allSupervisorApprovals() {
+            return await SupervisorApproval.findAll();
         },
         // Get an supervisor approval by it's ID
         async fetchSupervisorApproval(_, { id }) {

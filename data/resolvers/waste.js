@@ -4,8 +4,8 @@ require('dotenv').config();
 const waste = {
     Query: {
         // Fetch all wastes 
-        async allWastes(_, args, { user }) {
-            return await Waste.all();
+        async allWastes() {
+            return await Waste.findAll();
         },
         // Get an waste by it's ID
         async fetchWaste(_, { id }) {

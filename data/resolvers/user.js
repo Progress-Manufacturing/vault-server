@@ -6,7 +6,7 @@ const user = {
     Query: {
         // Fetch all users
         async allUsers() {
-            return await User.all();
+            return await User.findAll();
         },
         // Get a user by ID
         async fetchUser(_, { id }) {

@@ -4,8 +4,8 @@ require('dotenv').config();
 const reward = {
     Query: {
         // Fetch all rewards
-        async allRewards(_, args, { user }) {
-            return await Reward.all();
+        async allRewards() {
+            return await Reward.findAll();
         },
         // Get an reward by it's ID
         async fetchReward(_, { id }) {

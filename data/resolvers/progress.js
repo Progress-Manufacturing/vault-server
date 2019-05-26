@@ -4,8 +4,8 @@ require('dotenv').config();
 const progress = {
     Query: {
         // Fetch all progresses
-        async allProgresses(_, args, { user }) {
-            return await Progress.all();
+        async allProgresses() {
+            return await Progress.findAll();
         },
         // Get an progress by it's ID
         async fetchProgress(_, { id }) {

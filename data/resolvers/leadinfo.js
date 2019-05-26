@@ -5,7 +5,7 @@ const leadinfo = {
     Query: {
         // Fetch all lead information
         async allLeadInfo() {
-            return await LeadInfo.all()
+            return await LeadInfo.findAll()
         },
         // Get a lead information by it ID
         async fetchLeadInfo(_, { id }) {

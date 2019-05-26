@@ -5,7 +5,7 @@ const message = {
     Query: {
         // Fetch all messages
         async allMessages() {
-            return await Message.all();
+            return await Message.findAll();
         },
         // Get a message by it ID
         async fetchMessage(_, { id }) {
