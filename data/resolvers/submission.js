@@ -304,7 +304,6 @@ const submission = {
             });
 
             return submission;
-
         },
         async addSubmissionCommitteeApproval (_, { 
             submissionId, 

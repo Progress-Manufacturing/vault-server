@@ -5,14 +5,14 @@ const leadinfo = {
     Query: {
         // Fetch all lead information
         async allLeadInfo() {
-            return await LeadInfo.findAll()
+            return await LeadInfo.findAll();
         },
         // Get a lead information by it ID
         async fetchLeadInfo(_, { id }) {
             return await LeadInfo.findByPk(id)
         },
         async fetchSubmissionLeadInfo(_, { submission }) {
-            return await LeadInfo.find({ where: { submissionId: submission } })
+            return await LeadInfo.findOne({ where: { submissionId: submission } })
         }
 
     },
