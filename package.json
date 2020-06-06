@@ -15,7 +15,7 @@
   "author": "Colin Tracy",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.4.6",
+    "apollo-server": "^2.14.2",
     "apollo-server-express": "^2.3.3",
     "assert-plus": "^1.0.0",
     "bcrypt": "^3.0.4",
