@@ -18,7 +18,7 @@
     "apollo-server": "^2.4.6",
     "apollo-server-express": "^2.3.3",
     "assert-plus": "^1.0.0",
-    "bcrypt": "^3.0.4",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "bunyan": "^1.8.12",
     "connect-mongo": "^2.0.3",
